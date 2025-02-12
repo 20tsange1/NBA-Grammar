@@ -1,0 +1,156 @@
+=================
+Shoot
+=================
+
+Point Guard shoot
+
+---
+
+(start
+	(offensive_action
+		(shoot
+			(player_identifier))))
+
+=================
+Shoot with type
+=================
+
+Small Forward shoot (jumper)
+
+---
+
+(start
+	(offensive_action
+		(shoot
+			(player_identifier)
+			(shoot_type))))
+
+=================
+Pass
+=================
+
+Point Guard pass to Shooting Guard
+
+---
+
+(start
+	(offensive_action
+		(pass
+			(player_identifier)
+			(player_identifier))))
+
+=================
+Pass with type
+=================
+
+Small Forward pass (lob) to Center
+
+---
+
+(start
+	(offensive_action
+		(pass
+			(player_identifier)
+			(pass_type)
+			(player_identifier))))
+
+=================
+Screen
+=================
+
+Center set screen for Point Guard
+
+---
+
+(start
+	(offensive_action
+		(screen
+			(player_identifier)
+			(player_identifier))))
+
+=================
+Screen with location
+=================
+
+Center set screen for Point Guard at Top of Key
+
+---
+
+(start
+	(offensive_action
+		(screen
+			(player_identifier)
+			(player_identifier)
+			(location))))
+
+=================
+Dribble with location
+=================
+
+Point Guard dribble to Free Throw Line
+
+---
+
+(start
+	(offensive_action
+		(dribble
+			(player_identifier)
+			(location))))
+
+=================
+Dribble with location and type
+=================
+
+Point Guard dribble (behind-the-back) to Free Throw Line
+
+---
+
+(start
+	(offensive_action
+		(dribble
+			(player_identifier)
+			(dribble_move)
+			(location))))
+
+=================
+Cut with location
+=================
+
+Small Forward cut to Elbow Left
+
+---
+
+(start
+	(offensive_action
+		(cut
+			(player_identifier)
+			(location))))
+
+=================
+Cut type with location
+=================
+
+Small Forward cut (backdoor) to Elbow Left
+
+---
+
+(start
+	(offensive_action
+		(cut
+			(player_identifier)
+			(cut_type)
+			(location))))
+
+=================
+Post up
+=================
+
+Power Forward post up at Paint
+
+---
+
+(start
+	(offensive_action
+		(post_up
+			(player_identifier)
+			(location))))

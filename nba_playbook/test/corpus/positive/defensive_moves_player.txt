@@ -1,0 +1,103 @@
+=================
+Player Block Shot
+=================
+
+Jaren Jackson Jr @ block shot by ! Luka Doncic @
+
+---
+
+(start
+	(defensive_action
+		(block
+			(player
+				(name))
+			(player
+				(opponent_identifier)
+				(name)))))
+
+=================
+Player Steal
+=================
+
+Jrue Holiday @ steal from ! Ja Morant @
+
+---
+
+(start
+	(defensive_action
+		(steal
+			(player
+				(name))
+			(player
+				(opponent_identifier)
+				(name)))))
+
+=================
+Player Contest Shot
+=================
+
+Mikal Bridges @ contest shot by ! Stephen Curry @
+
+---
+
+(start
+	(defensive_action
+		(contest
+			(player
+				(name))
+			(player
+				(opponent_identifier)
+				(name)))))
+
+=================
+Player Switch
+=================
+
+OG Anunoby @ switch onto ! Devin Booker @
+
+---
+
+(start
+	(defensive_action
+		(switch
+			(player
+				(name))
+			(player
+				(opponent_identifier)
+				(name)))))
+
+=================
+Player Double Team
+=================
+
+Draymond Green @ double team on ! Jayson Tatum @
+
+---
+
+(start
+	(defensive_action
+		(double_team
+			(player
+				(name))
+			(player
+				(opponent_identifier)
+				(name)))))
+
+=================
+Player Double Team with Second Player
+=================
+
+Alex Caruso @ double team on ! Damian Lillard @ with Patrick Beverley @
+
+---
+
+(start
+	(defensive_action
+		(double_team
+			(player
+				(name))
+			(player
+				(opponent_identifier)
+				(name))
+			(player
+				(name)))))

@@ -1,0 +1,2331 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
+  "name": "nba_playbook",
+  "rules": {
+    "start": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "playbook"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_action_only"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "player_def"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "calculate"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "evaluate"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "team"
+          }
+        ]
+      }
+    },
+    "_action_only": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "offensive_action"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "defensive_action"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "special_action"
+        }
+      ]
+    },
+    "playbook": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "REPEAT1",
+        "content": {
+          "type": "SYMBOL",
+          "name": "play"
+        }
+      }
+    },
+    "play": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "PLAY"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "with"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "player_identifier"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": ","
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "player_identifier"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_action_holder"
+        }
+      ]
+    },
+    "returns": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "BALL"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "player_identifier"
+        }
+      ]
+    },
+    "_action_holder": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "{"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SYMBOL",
+                "name": "offensive_action"
+              }
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "returns"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "STRING",
+              "value": "}"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "{"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SYMBOL",
+                "name": "defensive_action"
+              }
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "returns"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "STRING",
+              "value": "}"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "{"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SYMBOL",
+                "name": "special_action"
+              }
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "returns"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "STRING",
+              "value": "}"
+            }
+          ]
+        }
+      ]
+    },
+    "offensive_action": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "shoot"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "pass"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "screen"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "dribble"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cut"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "post_up"
+        }
+      ]
+    },
+    "defensive_action": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "steal"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "contest"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "switch"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "double_team"
+        }
+      ]
+    },
+    "special_action": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "foul"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "timeout"
+        }
+      ]
+    },
+    "shoot": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "player"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "player_identifier"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "shoot"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "shoot_type"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "shoot_type": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "layup"
+            },
+            {
+              "type": "STRING",
+              "value": "dunk"
+            },
+            {
+              "type": "STRING",
+              "value": "jumper"
+            },
+            {
+              "type": "STRING",
+              "value": "step-back"
+            },
+            {
+              "type": "STRING",
+              "value": "floater"
+            },
+            {
+              "type": "STRING",
+              "value": "fadeaway"
+            },
+            {
+              "type": "STRING",
+              "value": "pull-up"
+            },
+            {
+              "type": "STRING",
+              "value": "bank-shot"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "pass": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "player"
+            },
+            {
+              "type": "STRING",
+              "value": "pass"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "pass_type"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "STRING",
+              "value": "to"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "player"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "player_identifier"
+            },
+            {
+              "type": "STRING",
+              "value": "pass"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "pass_type"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "STRING",
+              "value": "to"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "player_identifier"
+            }
+          ]
+        }
+      ]
+    },
+    "pass_type": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "bounce"
+            },
+            {
+              "type": "STRING",
+              "value": "lob"
+            },
+            {
+              "type": "STRING",
+              "value": "chest"
+            },
+            {
+              "type": "STRING",
+              "value": "behind-the-back"
+            },
+            {
+              "type": "STRING",
+              "value": "no-look"
+            },
+            {
+              "type": "STRING",
+              "value": "through"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "screen": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "player"
+            },
+            {
+              "type": "STRING",
+              "value": "set screen"
+            },
+            {
+              "type": "STRING",
+              "value": "for"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "player"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "at"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "location"
+                    }
+                  ]
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "player_identifier"
+            },
+            {
+              "type": "STRING",
+              "value": "set screen"
+            },
+            {
+              "type": "STRING",
+              "value": "for"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "player_identifier"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "at"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "location"
+                    }
+                  ]
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "dribble": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "player"
+            },
+            {
+              "type": "STRING",
+              "value": "dribble"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "dribble_move"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "STRING",
+              "value": "to"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "location"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "player_identifier"
+            },
+            {
+              "type": "STRING",
+              "value": "dribble"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "dribble_move"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "STRING",
+              "value": "to"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "location"
+            }
+          ]
+        }
+      ]
+    },
+    "dribble_move": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "crossover"
+            },
+            {
+              "type": "STRING",
+              "value": "hesitation"
+            },
+            {
+              "type": "STRING",
+              "value": "spin-move"
+            },
+            {
+              "type": "STRING",
+              "value": "behind-the-back"
+            },
+            {
+              "type": "STRING",
+              "value": "in-and-out"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "cut": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "player"
+            },
+            {
+              "type": "STRING",
+              "value": "cut"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "cut_type"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "STRING",
+              "value": "to"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "location"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "player_identifier"
+            },
+            {
+              "type": "STRING",
+              "value": "cut"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "cut_type"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "STRING",
+              "value": "to"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "location"
+            }
+          ]
+        }
+      ]
+    },
+    "cut_type": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "backdoor"
+            },
+            {
+              "type": "STRING",
+              "value": "flare"
+            },
+            {
+              "type": "STRING",
+              "value": "curl"
+            },
+            {
+              "type": "STRING",
+              "value": "fade"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "post_up": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "player"
+            },
+            {
+              "type": "STRING",
+              "value": "post up"
+            },
+            {
+              "type": "STRING",
+              "value": "at"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "location"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "player_identifier"
+            },
+            {
+              "type": "STRING",
+              "value": "post up"
+            },
+            {
+              "type": "STRING",
+              "value": "at"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "location"
+            }
+          ]
+        }
+      ]
+    },
+    "block": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "player"
+            },
+            {
+              "type": "STRING",
+              "value": "block"
+            },
+            {
+              "type": "STRING",
+              "value": "shot"
+            },
+            {
+              "type": "STRING",
+              "value": "by"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "player"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "player_identifier"
+            },
+            {
+              "type": "STRING",
+              "value": "block"
+            },
+            {
+              "type": "STRING",
+              "value": "shot"
+            },
+            {
+              "type": "STRING",
+              "value": "by"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "player_identifier"
+            }
+          ]
+        }
+      ]
+    },
+    "steal": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "player"
+            },
+            {
+              "type": "STRING",
+              "value": "steal"
+            },
+            {
+              "type": "STRING",
+              "value": "from"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "player"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "player_identifier"
+            },
+            {
+              "type": "STRING",
+              "value": "steal"
+            },
+            {
+              "type": "STRING",
+              "value": "from"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "player_identifier"
+            }
+          ]
+        }
+      ]
+    },
+    "contest": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "player"
+            },
+            {
+              "type": "STRING",
+              "value": "contest"
+            },
+            {
+              "type": "STRING",
+              "value": "shot"
+            },
+            {
+              "type": "STRING",
+              "value": "by"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "player"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "player_identifier"
+            },
+            {
+              "type": "STRING",
+              "value": "contest"
+            },
+            {
+              "type": "STRING",
+              "value": "shot"
+            },
+            {
+              "type": "STRING",
+              "value": "by"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "player_identifier"
+            }
+          ]
+        }
+      ]
+    },
+    "switch": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "player"
+            },
+            {
+              "type": "STRING",
+              "value": "switch"
+            },
+            {
+              "type": "STRING",
+              "value": "onto"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "player"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "player_identifier"
+            },
+            {
+              "type": "STRING",
+              "value": "switch"
+            },
+            {
+              "type": "STRING",
+              "value": "onto"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "player_identifier"
+            }
+          ]
+        }
+      ]
+    },
+    "double_team": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "player"
+            },
+            {
+              "type": "STRING",
+              "value": "double team"
+            },
+            {
+              "type": "STRING",
+              "value": "on"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "player"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "with"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "player"
+                    }
+                  ]
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "player_identifier"
+            },
+            {
+              "type": "STRING",
+              "value": "double team"
+            },
+            {
+              "type": "STRING",
+              "value": "on"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "player_identifier"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "with"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "player_identifier"
+                    }
+                  ]
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "foul": {
+      "type": "PREC",
+      "value": 2,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "player"
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "intentionally"
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              },
+              {
+                "type": "STRING",
+                "value": "fouls"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "player"
+              }
+            ]
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "player_identifier"
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "intentionally"
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              },
+              {
+                "type": "STRING",
+                "value": "fouls"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "player_identifier"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "timeout": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "player"
+            },
+            {
+              "type": "STRING",
+              "value": "calls timeout"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "player_identifier"
+            },
+            {
+              "type": "STRING",
+              "value": "calls timeout"
+            }
+          ]
+        }
+      ]
+    },
+    "location": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_frontcourt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_backcourt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_wing"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_corner"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_paint"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_post"
+        }
+      ]
+    },
+    "_frontcourt": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "Top of Key"
+        },
+        {
+          "type": "STRING",
+          "value": "Free Throw Line"
+        },
+        {
+          "type": "STRING",
+          "value": "Elbow Left"
+        },
+        {
+          "type": "STRING",
+          "value": "Elbow Right"
+        }
+      ]
+    },
+    "_backcourt": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "Half Court"
+        },
+        {
+          "type": "STRING",
+          "value": "Backcourt"
+        },
+        {
+          "type": "STRING",
+          "value": "Logo"
+        }
+      ]
+    },
+    "_wing": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "Left Wing"
+        },
+        {
+          "type": "STRING",
+          "value": "Right Wing"
+        }
+      ]
+    },
+    "_corner": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "Left Corner"
+        },
+        {
+          "type": "STRING",
+          "value": "Right Corner"
+        }
+      ]
+    },
+    "_paint": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "Restricted Area"
+        },
+        {
+          "type": "STRING",
+          "value": "Paint"
+        },
+        {
+          "type": "STRING",
+          "value": "Low Block"
+        }
+      ]
+    },
+    "_post": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "Low Post"
+        },
+        {
+          "type": "STRING",
+          "value": "High Post"
+        }
+      ]
+    },
+    "player_def": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "PERSON"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "player_name"
+        },
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "player_personals"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "player_attributes"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
+    "player_name": {
+      "type": "SYMBOL",
+      "name": "player"
+    },
+    "player_personals": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "INFORMATION"
+        },
+        {
+          "type": "STRING",
+          "value": "Height"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": ":"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "float"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "num"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "m"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "Weight"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": ":"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "float"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "num"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "kg"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "Wingspan"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": ":"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "float"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "num"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "m"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "Age"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": ":"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "num"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "years"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "player_attributes": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "ATTRIBUTES"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "attribute_category"
+          }
+        }
+      ]
+    },
+    "attribute_category": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string_capitalised"
+          },
+          "named": true,
+          "value": "identifier"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "attribute"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "attribute": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": ":"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "float"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "%"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "calculate": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "CALCULATE"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "string_capitalised"
+              },
+              "named": true,
+              "value": "identifier"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "with"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "player_identifier"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": ","
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "player_identifier"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "calculation_holder"
+        }
+      ]
+    },
+    "calculation_holder": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "calculation_variable"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "RETURN"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "calculation_expression"
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
+    "calculation_variable": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "SYMBOL",
+          "name": "calculation_expression"
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
+    "calculation_expression": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_calculation_values"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "calculation_bracket"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_calculation_line"
+        }
+      ]
+    },
+    "_calculation_line": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_calculate_higher_precedence"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_calculate_lower_precedence"
+        }
+      ]
+    },
+    "_calculate_higher_precedence": {
+      "type": "PREC_LEFT",
+      "value": 2,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "calculation_expression"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "*"
+              },
+              {
+                "type": "STRING",
+                "value": "/"
+              },
+              {
+                "type": "STRING",
+                "value": "%"
+              },
+              {
+                "type": "STRING",
+                "value": "/ /"
+              }
+            ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "calculation_expression"
+          }
+        ]
+      }
+    },
+    "_calculate_lower_precedence": {
+      "type": "PREC_LEFT",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "calculation_expression"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "+"
+              },
+              {
+                "type": "STRING",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "calculation_expression"
+          }
+        ]
+      }
+    },
+    "calculation_bracket": {
+      "type": "PREC",
+      "value": 3,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "("
+          },
+          {
+            "type": "SYMBOL",
+            "name": "calculation_expression"
+          },
+          {
+            "type": "STRING",
+            "value": ")"
+          }
+        ]
+      }
+    },
+    "_calculation_values": {
+      "type": "PREC",
+      "value": 3,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "attribute_access"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "float"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "num"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        ]
+      }
+    },
+    "attribute_access": {
+      "type": "PREC",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "player_identifier"
+          },
+          {
+            "type": "STRING",
+            "value": "."
+          },
+          {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        ]
+      }
+    },
+    "evaluate": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "EVAL"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "with"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "player"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    }
+                  ]
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": ","
+                      },
+                      {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "player"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "identifier"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "evaluation_holder"
+        }
+      ]
+    },
+    "evaluation_holder": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "evaluation_function"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
+    "evaluation_function": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "function_chain"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_action_only"
+        }
+      ]
+    },
+    "function_chain": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "player"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "identifier"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "function_chain"
+                    }
+                  ]
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": ","
+                      },
+                      {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "player"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "function_chain"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "team": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "TEAM"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "team_holder"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "team_holder": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "player"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SYMBOL",
+                "name": "player"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "player": {
+      "type": "PREC",
+      "value": 4,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "opponent_identifier"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "name"
+          },
+          {
+            "type": "STRING",
+            "value": "@"
+          }
+        ]
+      }
+    },
+    "name": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_string_first_capitalised"
+      }
+    },
+    "player_identifier": {
+      "type": "PREC",
+      "value": 6,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "opponent_identifier"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "Point Guard"
+              },
+              {
+                "type": "STRING",
+                "value": "Shooting Guard"
+              },
+              {
+                "type": "STRING",
+                "value": "Small Forward"
+              },
+              {
+                "type": "STRING",
+                "value": "Power Forward"
+              },
+              {
+                "type": "STRING",
+                "value": "Center"
+              },
+              {
+                "type": "STRING",
+                "value": "Ball Handler"
+              },
+              {
+                "type": "STRING",
+                "value": "On Ball"
+              },
+              {
+                "type": "STRING",
+                "value": "Off Ball"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opponent_identifier": {
+      "type": "STRING",
+      "value": "!"
+    },
+    "identifier": {
+      "type": "PATTERN",
+      "value": "[a-z_][a-zA-Z0-9_]*"
+    },
+    "string": {
+      "type": "PATTERN",
+      "value": "[a-zA-Z_]+"
+    },
+    "_string_first_capitalised": {
+      "type": "PATTERN",
+      "value": "[A-Z_][a-zA-Z_]*"
+    },
+    "string_capitalised": {
+      "type": "PATTERN",
+      "value": "[A-Z_][A-Z_]*"
+    },
+    "float": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_num"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_num"
+        }
+      ]
+    },
+    "_num": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "REPEAT1",
+        "content": {
+          "type": "SYMBOL",
+          "name": "_digit"
+        }
+      }
+    },
+    "num": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "REPEAT1",
+        "content": {
+          "type": "SYMBOL",
+          "name": "_digit"
+        }
+      }
+    },
+    "_digit": {
+      "type": "PATTERN",
+      "value": "[0-9]"
+    }
+  },
+  "extras": [
+    {
+      "type": "PATTERN",
+      "value": "\\s"
+    }
+  ],
+  "conflicts": [],
+  "precedences": [],
+  "externals": [],
+  "inline": [],
+  "supertypes": []
+}

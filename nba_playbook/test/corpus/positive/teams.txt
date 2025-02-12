@@ -1,0 +1,73 @@
+=================
+Team Single Person
+=================
+
+TEAM lebron (Lebron James @)
+
+---
+
+(start
+    (team
+        (identifier)
+        (team_holder
+            (player
+                (name)))))
+
+=================
+Team Multiple People
+=================
+
+TEAM la_lakers (Lebron James @, Luca Doncic @, Austin Reaves @)
+
+---
+
+(start
+    (team
+        (identifier)
+        (team_holder
+            (player
+                (name))
+            (player
+                (name))
+            (player
+                (name)))))
+
+=================
+Team Opponents
+=================
+
+
+TEAM bucks (!Giannis @, !Dame @)
+
+---
+
+(start
+    (team
+        (identifier)
+        (team_holder
+            (player
+                (opponent_identifier)
+                (name))
+            (player
+                (opponent_identifier)
+                (name)))))
+
+=================
+Team Matchup
+=================
+
+
+TEAM lakers_bucks_matchup (Lebron @, !Giannis @)
+
+---
+
+
+(start
+    (team
+        (identifier)
+        (team_holder
+            (player
+                (name))
+            (player
+                (opponent_identifier)
+                (name)))))

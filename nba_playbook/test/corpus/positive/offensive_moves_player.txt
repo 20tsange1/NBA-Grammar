@@ -1,0 +1,171 @@
+=================
+Player Shoot
+=================
+
+Stephen Curry @ shoot
+
+---
+
+(start
+	(offensive_action
+		(shoot
+			(player
+				(name)))))
+
+=================
+Player Shoot with type
+=================
+
+Stephen Curry @ shoot (step-back)
+
+---
+
+(start
+	(offensive_action
+		(shoot
+			(player
+				(name))
+			(shoot_type))))
+
+=================
+Player Pass
+=================
+
+Dwayne Wade @ pass to Lebron James @
+
+---
+
+(start
+	(offensive_action
+		(pass
+			(player
+				(name))
+			(player
+				(name)))))
+
+=================
+Player Pass with type
+=================
+
+Dwayne Wade @ pass (bounce) to Lebron James @
+
+---
+
+(start
+	(offensive_action
+		(pass
+			(player
+				(name))
+			(pass_type)
+			(player
+				(name)))))
+
+=================
+Player Screen
+=================
+
+Dwight Howard @ set screen for Chris Paul @
+
+---
+
+(start
+	(offensive_action
+		(screen
+			(player
+				(name))
+			(player
+				(name)))))
+
+=================
+Player Screen with location
+=================
+
+Dwight Howard @ set screen for Chris Paul @ at Right Wing
+
+---
+
+(start
+	(offensive_action
+		(screen
+			(player
+				(name))
+			(player
+				(name))
+			(location))))
+
+=================
+Player Dribble with location
+=================
+
+Paul George @ dribble to Half Court
+
+---
+
+(start
+	(offensive_action
+		(dribble
+			(player
+				(name))
+			(location))))
+
+=================
+Player Dribble with location and type
+=================
+
+Paul George @ dribble (hesitation) to Half Court
+
+---
+
+(start
+	(offensive_action
+		(dribble
+			(player
+				(name))
+			(dribble_move)
+			(location))))
+
+=================
+Player Cut with location
+=================
+
+Trae Young @ cut to Free Throw Line
+
+---
+
+(start
+	(offensive_action
+		(cut
+			(player
+				(name))
+			(location))))
+
+=================
+Player Cut type with location
+=================
+
+Trae Young @ cut (flare) to Free Throw Line
+
+---
+
+(start
+	(offensive_action
+		(cut
+			(player
+				(name))
+			(cut_type)
+			(location))))
+
+=================
+Player Post up
+=================
+
+Zion Williamson @ post up at Low Post
+
+---
+
+(start
+	(offensive_action
+		(post_up
+			(player
+				(name))
+			(location))))

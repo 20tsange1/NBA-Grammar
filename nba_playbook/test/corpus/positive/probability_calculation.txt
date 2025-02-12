@@ -1,0 +1,215 @@
+=================
+Calculation Return Attribute
+=================
+
+CALCULATE PASS {
+	RETURN Point Guard.passing;
+}
+
+---
+
+(start
+	(calculate
+		(identifier)
+		(calculation_holder
+			(calculation_expression
+				(attribute_access
+					(player_identifier)
+					(identifier))))))
+
+=================
+Calculation Return Variable
+=================
+
+CALCULATE PASS {
+	RETURN predefined;
+}
+
+---
+
+(start
+	(calculate
+		(identifier)
+		(calculation_holder
+			(calculation_expression
+				(identifier)))))
+
+=================
+Calculation Return Number
+=================
+
+CALCULATE PASS {
+	RETURN 0;
+}
+
+---
+
+(start
+	(calculate
+		(identifier)
+		(calculation_holder
+			(calculation_expression
+				(num)))))
+
+=================
+Calculation Return Float
+=================
+
+CALCULATE PASS {
+	RETURN 0.0;
+}
+
+---
+
+(start
+	(calculate
+		(identifier)
+		(calculation_holder
+			(calculation_expression
+				(float)))))
+
+=================
+Calculation Return with Player ID
+=================
+
+CALCULATE SHOOT with Point Guard {
+	RETURN 0.0;
+}
+
+---
+
+(start
+	(calculate
+		(identifier)
+		(player_identifier)
+		(calculation_holder
+			(calculation_expression
+				(float)))))
+
+=================
+Calculation Return with Player ID and Variable
+=================
+
+CALCULATE SHOOT with Point Guard {
+	point_guard = Point Guard.shooting;
+	RETURN 0.0;
+}
+
+---
+
+(start
+	(calculate
+		(identifier)
+		(player_identifier)
+		(calculation_holder
+			(calculation_variable
+				(identifier)
+				(calculation_expression
+					(attribute_access
+						(player_identifier)
+						(identifier))))
+			(calculation_expression
+				(float)))))
+
+=================
+Calculation Return with Player ID and Variable calculation
+=================
+
+CALCULATE SHOOT with Point Guard {
+	point_guard = Point Guard.shooting * 0.37;
+	RETURN 0.0;
+}
+
+---
+
+(start
+	(calculate
+		(identifier)
+		(player_identifier)
+		(calculation_holder
+			(calculation_variable
+				(identifier)
+				(calculation_expression
+					(calculation_expression
+						(attribute_access
+							(player_identifier)
+							(identifier)))
+					(calculation_expression
+						(float))))
+			(calculation_expression
+				(float)))))
+
+=================
+Calculation Return with Multiple Player ID
+=================
+
+CALCULATE PASS with Point Guard, Shooting Guard {
+	RETURN 0.0;
+}
+
+---
+
+(start
+	(calculate
+		(identifier)
+		(player_identifier)
+		(player_identifier)
+		(calculation_holder
+			(calculation_expression
+				(float)))))
+
+=================
+Calculation Return with Multiple Player ID and Multiple Variable Calculation
+=================
+
+CALCULATE PASS with Point Guard, Shooting Guard {
+	point_guard = Point Guard.passing * 0.37;
+	shooting_guard = Shooting Guard.ball_handling * 0.85;
+	RETURN 0.0;
+}
+
+---
+
+(start
+	(calculate
+		(identifier)
+		(player_identifier)
+		(player_identifier)
+		(calculation_holder
+			(calculation_variable
+				(identifier)
+				(calculation_expression
+					(calculation_expression
+						(attribute_access
+							(player_identifier)
+							(identifier)))
+					(calculation_expression
+						(float))))
+			(calculation_variable
+				(identifier)
+				(calculation_expression
+					(calculation_expression
+						(attribute_access
+							(player_identifier)
+							(identifier)))
+					(calculation_expression
+						(float))))
+			(calculation_expression
+				(float)))))
+
+=================
+Calculation Override Play
+=================
+
+CALCULATE pass_pass {
+    RETURN 1.0;
+}
+
+---
+
+(start
+	(calculate
+		(identifier)
+		(calculation_holder
+			(calculation_expression
+				(float)))))

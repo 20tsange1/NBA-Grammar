@@ -1,0 +1,247 @@
+=================
+Arithmetic Brackets
+=================
+
+CALCULATE PASS {
+	RETURN (1.0);
+}
+
+---
+
+(start
+	(calculate
+		(identifier)
+		(calculation_holder
+			(calculation_expression
+				(calculation_bracket
+					(calculation_expression
+						(float)))))))
+
+=================
+Arithmetic Operation
+=================
+
+CALCULATE PASS {
+	RETURN 2.0 - 2.0;
+}
+
+---
+
+(start
+	(calculate
+		(identifier)
+		(calculation_holder
+			(calculation_expression
+				(calculation_expression
+					(float))
+				(calculation_expression
+					(float))))))
+
+=================
+Arithmetic Operation Precedence
+=================
+
+CALCULATE PASS {
+	RETURN 2.0 - 2.0 * 2.0;
+}
+
+---
+
+(start
+	(calculate
+		(identifier)
+		(calculation_holder
+			(calculation_expression
+				(calculation_expression
+					(float))
+				(calculation_expression
+					(calculation_expression
+						(float))
+					(calculation_expression
+						(float)))))))
+
+=================
+Arithmetic Operation Brackets
+=================
+
+CALCULATE PASS {
+	RETURN (2.0 * 3.0);
+}
+
+---
+
+(start
+	(calculate
+		(identifier)
+		(calculation_holder
+			(calculation_expression
+				(calculation_bracket
+					(calculation_expression
+						(calculation_expression
+							(float))
+						(calculation_expression
+							(float))))))))
+
+=================
+Arithmetic Operation Mix With Brackets
+=================
+
+CALCULATE PASS {
+	RETURN 4.0 * (5.0);
+}
+
+---
+
+(start
+	(calculate
+		(identifier)
+		(calculation_holder
+			(calculation_expression
+				(calculation_expression
+					(float))
+				(calculation_expression
+					(calculation_bracket
+						(calculation_expression
+							(float))))))))
+
+=================
+Arithmetic Separated Brackets
+=================
+
+CALCULATE PASS {
+	RETURN (6.0) * (7.0);
+}
+
+---
+
+(start
+	(calculate
+		(identifier)
+		(calculation_holder
+			(calculation_expression
+				(calculation_expression
+					(calculation_bracket
+						(calculation_expression
+							(float))))
+				(calculation_expression
+					(calculation_bracket
+						(calculation_expression
+							(float))))))))
+
+=================
+Arithmetic Nested Brackets
+=================
+
+CALCULATE PASS {
+	RETURN ((8.0) * (9.0));
+}
+
+---
+
+(start
+	(calculate
+		(identifier)
+		(calculation_holder
+			(calculation_expression
+				(calculation_bracket
+					(calculation_expression
+						(calculation_expression
+							(calculation_bracket
+								(calculation_expression
+									(float))))
+							(calculation_expression
+								(calculation_bracket
+									(calculation_expression
+										(float))))))))))
+
+=================
+Arithmetic Brackets Mix
+=================
+
+CALCULATE PASS {
+	RETURN ((10.0 * 11.0) + 5.0);
+}
+
+---
+
+(start
+	(calculate
+		(identifier)
+		(calculation_holder
+			(calculation_expression
+				(calculation_bracket
+					(calculation_expression
+						(calculation_expression
+							(calculation_bracket
+								(calculation_expression
+									(calculation_expression
+										(float))
+									(calculation_expression
+										(float)))))
+						(calculation_expression
+							(float))))))))
+
+=================
+Arithmetic Brackets Precedence
+=================
+
+CALCULATE PASS {
+	RETURN ((2.0 * (3.0 + 4.0)) / 5.0);
+}
+
+---
+
+(start
+	(calculate
+		(identifier)
+		(calculation_holder
+			(calculation_expression
+				(calculation_bracket
+					(calculation_expression
+						(calculation_expression
+							(calculation_bracket
+								(calculation_expression
+									(calculation_expression
+										(float))
+									(calculation_expression
+										(calculation_bracket
+											(calculation_expression
+												(calculation_expression
+                                                    (float))
+                                            (calculation_expression
+                                                (float))))))))
+                    (calculation_expression
+                        (float))))))))
+
+=================
+Arithmetic Brackets Nested Precedence
+=================
+
+CALCULATE PASS {
+	RETURN (2.0) + (3.0 + 2.0 * 2.0) * 1.0;
+}
+
+---
+
+(start
+	(calculate
+		(identifier)
+		(calculation_holder
+			(calculation_expression
+				(calculation_expression
+					(calculation_bracket
+						(calculation_expression
+							(float))))
+				(calculation_expression
+					(calculation_expression
+						(calculation_bracket
+							(calculation_expression
+								(calculation_expression
+									(float))
+								(calculation_expression
+									(calculation_expression
+										(float))
+									(calculation_expression
+										(float))))))
+					(calculation_expression
+						(float)))))))

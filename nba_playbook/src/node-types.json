@@ -1,0 +1,1323 @@
+[
+  {
+    "type": "attribute",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "float",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "attribute_access",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "player_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "attribute_category",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "player",
+          "named": true
+        },
+        {
+          "type": "player_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "calculate",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "calculation_holder",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "player_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "calculation_bracket",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "calculation_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "calculation_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "attribute_access",
+          "named": true
+        },
+        {
+          "type": "calculation_bracket",
+          "named": true
+        },
+        {
+          "type": "calculation_expression",
+          "named": true
+        },
+        {
+          "type": "float",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "num",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "calculation_holder",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "calculation_expression",
+          "named": true
+        },
+        {
+          "type": "calculation_variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "calculation_variable",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "calculation_expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "contest",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "player",
+          "named": true
+        },
+        {
+          "type": "player_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "cut",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "cut_type",
+          "named": true
+        },
+        {
+          "type": "location",
+          "named": true
+        },
+        {
+          "type": "player",
+          "named": true
+        },
+        {
+          "type": "player_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "cut_type",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "defensive_action",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "contest",
+          "named": true
+        },
+        {
+          "type": "double_team",
+          "named": true
+        },
+        {
+          "type": "steal",
+          "named": true
+        },
+        {
+          "type": "switch",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "double_team",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "player",
+          "named": true
+        },
+        {
+          "type": "player_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "dribble",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "dribble_move",
+          "named": true
+        },
+        {
+          "type": "location",
+          "named": true
+        },
+        {
+          "type": "player",
+          "named": true
+        },
+        {
+          "type": "player_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "dribble_move",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "evaluate",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "evaluation_holder",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "player",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "evaluation_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "defensive_action",
+          "named": true
+        },
+        {
+          "type": "function_chain",
+          "named": true
+        },
+        {
+          "type": "offensive_action",
+          "named": true
+        },
+        {
+          "type": "special_action",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "evaluation_holder",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "evaluation_function",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "float",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "foul",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "player",
+          "named": true
+        },
+        {
+          "type": "player_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function_chain",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "function_chain",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "player",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "location",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "name",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "num",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "offensive_action",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "cut",
+          "named": true
+        },
+        {
+          "type": "dribble",
+          "named": true
+        },
+        {
+          "type": "pass",
+          "named": true
+        },
+        {
+          "type": "post_up",
+          "named": true
+        },
+        {
+          "type": "screen",
+          "named": true
+        },
+        {
+          "type": "shoot",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "pass",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "pass_type",
+          "named": true
+        },
+        {
+          "type": "player",
+          "named": true
+        },
+        {
+          "type": "player_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "pass_type",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "play",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "defensive_action",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "offensive_action",
+          "named": true
+        },
+        {
+          "type": "player_identifier",
+          "named": true
+        },
+        {
+          "type": "returns",
+          "named": true
+        },
+        {
+          "type": "special_action",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "playbook",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "play",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "player",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "name",
+          "named": true
+        },
+        {
+          "type": "opponent_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "player_attributes",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "attribute_category",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "player_def",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "player_attributes",
+          "named": true
+        },
+        {
+          "type": "player_name",
+          "named": true
+        },
+        {
+          "type": "player_personals",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "player_identifier",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "opponent_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "player_name",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "player",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "player_personals",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "float",
+          "named": true
+        },
+        {
+          "type": "num",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "post_up",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "location",
+          "named": true
+        },
+        {
+          "type": "player",
+          "named": true
+        },
+        {
+          "type": "player_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "returns",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "player_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "screen",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "location",
+          "named": true
+        },
+        {
+          "type": "player",
+          "named": true
+        },
+        {
+          "type": "player_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "shoot",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "player",
+          "named": true
+        },
+        {
+          "type": "player_identifier",
+          "named": true
+        },
+        {
+          "type": "shoot_type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "shoot_type",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "special_action",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "foul",
+          "named": true
+        },
+        {
+          "type": "timeout",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "start",
+    "named": true,
+    "root": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "calculate",
+          "named": true
+        },
+        {
+          "type": "defensive_action",
+          "named": true
+        },
+        {
+          "type": "evaluate",
+          "named": true
+        },
+        {
+          "type": "offensive_action",
+          "named": true
+        },
+        {
+          "type": "playbook",
+          "named": true
+        },
+        {
+          "type": "player_def",
+          "named": true
+        },
+        {
+          "type": "special_action",
+          "named": true
+        },
+        {
+          "type": "team",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "steal",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "player",
+          "named": true
+        },
+        {
+          "type": "player_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "switch",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "player",
+          "named": true
+        },
+        {
+          "type": "player_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "team",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "team_holder",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "team_holder",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "player",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "timeout",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "player",
+          "named": true
+        },
+        {
+          "type": "player_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "%",
+    "named": false
+  },
+  {
+    "type": "(",
+    "named": false
+  },
+  {
+    "type": ")",
+    "named": false
+  },
+  {
+    "type": "*",
+    "named": false
+  },
+  {
+    "type": "+",
+    "named": false
+  },
+  {
+    "type": ",",
+    "named": false
+  },
+  {
+    "type": "-",
+    "named": false
+  },
+  {
+    "type": ".",
+    "named": false
+  },
+  {
+    "type": "/",
+    "named": false
+  },
+  {
+    "type": "/ /",
+    "named": false
+  },
+  {
+    "type": ":",
+    "named": false
+  },
+  {
+    "type": ";",
+    "named": false
+  },
+  {
+    "type": "=",
+    "named": false
+  },
+  {
+    "type": "@",
+    "named": false
+  },
+  {
+    "type": "ATTRIBUTES",
+    "named": false
+  },
+  {
+    "type": "Age",
+    "named": false
+  },
+  {
+    "type": "BALL",
+    "named": false
+  },
+  {
+    "type": "Backcourt",
+    "named": false
+  },
+  {
+    "type": "Ball Handler",
+    "named": false
+  },
+  {
+    "type": "CALCULATE",
+    "named": false
+  },
+  {
+    "type": "Center",
+    "named": false
+  },
+  {
+    "type": "EVAL",
+    "named": false
+  },
+  {
+    "type": "Elbow Left",
+    "named": false
+  },
+  {
+    "type": "Elbow Right",
+    "named": false
+  },
+  {
+    "type": "Free Throw Line",
+    "named": false
+  },
+  {
+    "type": "Half Court",
+    "named": false
+  },
+  {
+    "type": "Height",
+    "named": false
+  },
+  {
+    "type": "High Post",
+    "named": false
+  },
+  {
+    "type": "INFORMATION",
+    "named": false
+  },
+  {
+    "type": "Left Corner",
+    "named": false
+  },
+  {
+    "type": "Left Wing",
+    "named": false
+  },
+  {
+    "type": "Logo",
+    "named": false
+  },
+  {
+    "type": "Low Block",
+    "named": false
+  },
+  {
+    "type": "Low Post",
+    "named": false
+  },
+  {
+    "type": "Off Ball",
+    "named": false
+  },
+  {
+    "type": "On Ball",
+    "named": false
+  },
+  {
+    "type": "PERSON",
+    "named": false
+  },
+  {
+    "type": "PLAY",
+    "named": false
+  },
+  {
+    "type": "Paint",
+    "named": false
+  },
+  {
+    "type": "Point Guard",
+    "named": false
+  },
+  {
+    "type": "Power Forward",
+    "named": false
+  },
+  {
+    "type": "RETURN",
+    "named": false
+  },
+  {
+    "type": "Restricted Area",
+    "named": false
+  },
+  {
+    "type": "Right Corner",
+    "named": false
+  },
+  {
+    "type": "Right Wing",
+    "named": false
+  },
+  {
+    "type": "Shooting Guard",
+    "named": false
+  },
+  {
+    "type": "Small Forward",
+    "named": false
+  },
+  {
+    "type": "TEAM",
+    "named": false
+  },
+  {
+    "type": "Top of Key",
+    "named": false
+  },
+  {
+    "type": "Weight",
+    "named": false
+  },
+  {
+    "type": "Wingspan",
+    "named": false
+  },
+  {
+    "type": "at",
+    "named": false
+  },
+  {
+    "type": "backdoor",
+    "named": false
+  },
+  {
+    "type": "bank-shot",
+    "named": false
+  },
+  {
+    "type": "behind-the-back",
+    "named": false
+  },
+  {
+    "type": "block",
+    "named": false
+  },
+  {
+    "type": "bounce",
+    "named": false
+  },
+  {
+    "type": "by",
+    "named": false
+  },
+  {
+    "type": "calls timeout",
+    "named": false
+  },
+  {
+    "type": "chest",
+    "named": false
+  },
+  {
+    "type": "contest",
+    "named": false
+  },
+  {
+    "type": "crossover",
+    "named": false
+  },
+  {
+    "type": "curl",
+    "named": false
+  },
+  {
+    "type": "cut",
+    "named": false
+  },
+  {
+    "type": "double team",
+    "named": false
+  },
+  {
+    "type": "dribble",
+    "named": false
+  },
+  {
+    "type": "dunk",
+    "named": false
+  },
+  {
+    "type": "fade",
+    "named": false
+  },
+  {
+    "type": "fadeaway",
+    "named": false
+  },
+  {
+    "type": "flare",
+    "named": false
+  },
+  {
+    "type": "floater",
+    "named": false
+  },
+  {
+    "type": "for",
+    "named": false
+  },
+  {
+    "type": "fouls",
+    "named": false
+  },
+  {
+    "type": "from",
+    "named": false
+  },
+  {
+    "type": "hesitation",
+    "named": false
+  },
+  {
+    "type": "identifier",
+    "named": true
+  },
+  {
+    "type": "in-and-out",
+    "named": false
+  },
+  {
+    "type": "intentionally",
+    "named": false
+  },
+  {
+    "type": "jumper",
+    "named": false
+  },
+  {
+    "type": "kg",
+    "named": false
+  },
+  {
+    "type": "layup",
+    "named": false
+  },
+  {
+    "type": "lob",
+    "named": false
+  },
+  {
+    "type": "m",
+    "named": false
+  },
+  {
+    "type": "no-look",
+    "named": false
+  },
+  {
+    "type": "on",
+    "named": false
+  },
+  {
+    "type": "onto",
+    "named": false
+  },
+  {
+    "type": "opponent_identifier",
+    "named": true
+  },
+  {
+    "type": "pass",
+    "named": false
+  },
+  {
+    "type": "post up",
+    "named": false
+  },
+  {
+    "type": "pull-up",
+    "named": false
+  },
+  {
+    "type": "set screen",
+    "named": false
+  },
+  {
+    "type": "shoot",
+    "named": false
+  },
+  {
+    "type": "shot",
+    "named": false
+  },
+  {
+    "type": "spin-move",
+    "named": false
+  },
+  {
+    "type": "steal",
+    "named": false
+  },
+  {
+    "type": "step-back",
+    "named": false
+  },
+  {
+    "type": "switch",
+    "named": false
+  },
+  {
+    "type": "through",
+    "named": false
+  },
+  {
+    "type": "to",
+    "named": false
+  },
+  {
+    "type": "with",
+    "named": false
+  },
+  {
+    "type": "years",
+    "named": false
+  },
+  {
+    "type": "{",
+    "named": false
+  },
+  {
+    "type": "}",
+    "named": false
+  }
+]

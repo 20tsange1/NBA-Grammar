@@ -1,0 +1,228 @@
+=================
+Evaluation Single Play
+=================
+
+EVAL {
+	pass_shoot()
+}
+
+---
+
+(start
+	(evaluate
+		(evaluation_holder
+			(evaluation_function
+				(function_chain
+					(identifier))))))
+
+=================
+Evaluation Nested Play
+=================
+
+EVAL {
+	pass_shoot(pass_pass())
+}
+
+---
+
+(start
+	(evaluate
+		(evaluation_holder
+			(evaluation_function
+				(function_chain
+					(identifier)
+					(function_chain
+						(identifier)))))))
+
+=================
+Evaluation Single Play with Player Unspecified
+=================
+
+EVAL {
+	Lebron James @ shoot
+}
+
+---
+
+(start
+	(evaluate
+		(evaluation_holder
+			(evaluation_function
+				(offensive_action
+					(shoot
+						(player
+							(name))))))))
+
+=================
+Evaluation Single Play with Player
+=================
+
+EVAL with Lebron James @{
+	pass_shoot(Lebron James @)
+}
+
+---
+
+(start
+	(evaluate
+		(player
+			(name))
+		(evaluation_holder
+			(evaluation_function
+				(function_chain
+					(identifier)
+					(player
+						(name)))))))
+
+=================
+Evaluation Single Action
+=================
+
+EVAL with Lebron James @{
+	Lebron James @ shoot
+}
+
+---
+
+(start
+	(evaluate
+		(player
+			(name))
+		(evaluation_holder
+			(evaluation_function
+				(offensive_action
+					(shoot
+						(player
+							(name))))))))
+
+=================
+Evaluation Nested Play and Player
+=================
+
+EVAL {
+	pass_shoot(Luka Doncic @, pass_pass())
+}
+
+---
+
+(start
+	(evaluate
+		(evaluation_holder
+			(evaluation_function
+				(function_chain
+					(identifier)
+					(player
+						(name))
+					(function_chain
+						(identifier)))))))
+
+=================
+Evaluation Nested Play and Player Flipped
+=================
+
+EVAL {
+	pass_shoot(pass_pass(), Luka Doncic @)
+}
+
+---
+
+(start
+	(evaluate
+		(evaluation_holder
+			(evaluation_function
+				(function_chain
+					(identifier)
+					(function_chain
+						(identifier))
+					(player
+						(name)))))))
+
+=================
+Evaluation Double Nested Play and Player
+=================
+
+EVAL {
+	pass_shoot(Luka Doncic @, luka_magic(Luka Doncic @))
+}
+
+---
+
+(start
+	(evaluate
+		(evaluation_holder
+			(evaluation_function
+				(function_chain
+					(identifier)
+					(player
+						(name))
+					(function_chain
+						(identifier)
+						(player
+							(name))))))))
+
+=================
+Evaluation Play with Team
+=================
+
+EVAL with la_lakers{
+	pass_shoot(la_lakers)
+}
+
+---
+
+(start
+	(evaluate
+		(identifier)
+		(evaluation_holder
+			(evaluation_function
+				(function_chain
+					(identifier)
+					(identifier))))))
+
+=================
+Evaluation Multiple Action
+=================
+
+EVAL {
+	Luka Doncic @ pass to Lebron James @
+	Lebron James @ shoot
+}
+
+---
+
+(start
+	(evaluate
+		(evaluation_holder
+			(evaluation_function
+				(offensive_action
+					(pass
+						(player
+							(name))
+						(player
+							(name)))))
+			(evaluation_function
+				(offensive_action
+					(shoot
+						(player
+							(name))))))))
+
+=================
+Evaluation Multiple Play
+=================
+
+EVAL {
+	pass_pass()
+	pass_shoot()
+}
+
+---
+
+(start
+	(evaluate
+		(evaluation_holder
+			(evaluation_function
+				(function_chain
+					(identifier)))
+			(evaluation_function
+				(function_chain
+					(identifier))))))

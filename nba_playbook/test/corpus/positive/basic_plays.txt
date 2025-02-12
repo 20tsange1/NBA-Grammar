@@ -1,0 +1,176 @@
+=================
+Empty play definition
+=================
+
+PLAY empty_play {
+}
+
+---
+
+(start
+	(playbook
+		(play
+			(identifier))))
+
+=================
+Empty play definition with player_id
+=================
+
+PLAY empty_play with Point Guard {
+}
+
+---
+
+(start
+	(playbook
+		(play
+			(identifier)
+			(player_identifier))))
+
+=================
+Empty play definition with player_id and return
+=================
+
+PLAY empty_play_return with Point Guard {
+	BALL Point Guard
+}
+
+---
+
+(start
+	(playbook
+		(play
+			(identifier)
+			(player_identifier)
+			(returns
+				(player_identifier)))))
+
+=================
+Pass play definition 
+=================
+
+PLAY basic_play_1 with Point Guard, Small Forward {
+	Point Guard pass (lob) to Small Forward
+}
+
+---
+
+(start
+	(playbook
+		(play
+			(identifier)
+			(player_identifier)
+			(player_identifier)
+			(offensive_action
+				(pass
+					(player_identifier)
+					(pass_type)
+					(player_identifier))))))
+
+=================
+Pass play definition with return
+=================
+
+PLAY basic_play_2 with Point Guard, Small Forward {
+	Point Guard pass to Small Forward
+	BALL Small Forward
+}
+
+---
+
+(start
+	(playbook
+		(play
+			(identifier)
+			(player_identifier)
+			(player_identifier)
+			(offensive_action
+				(pass
+					(player_identifier)
+					(player_identifier)))
+			(returns
+				(player_identifier)))))
+
+=================
+Pass play definition with pass type and return
+=================
+
+PLAY basic_play_2 with Point Guard, Small Forward {
+	Point Guard pass (lob) to Small Forward
+	BALL Small Forward
+}
+
+---
+
+(start
+	(playbook
+		(play
+			(identifier)
+			(player_identifier)
+			(player_identifier)
+			(offensive_action
+				(pass
+					(player_identifier)
+					(pass_type)
+					(player_identifier)))
+			(returns
+				(player_identifier)))))
+
+=================
+Pass and Shoot Play (> 1 Actions)
+=================
+
+PLAY pass_shoot with Point Guard, Small Forward {
+	Point Guard pass (chest) to Small Forward
+	Small Forward shoot (layup)
+}
+
+---
+
+(start
+	(playbook
+		(play
+			(identifier)
+			(player_identifier)
+			(player_identifier)
+			(offensive_action
+				(pass
+					(player_identifier)
+					(pass_type)
+					(player_identifier)))
+			(offensive_action
+				(shoot
+					(player_identifier)
+					(shoot_type))))))
+
+=================
+Pass and Pass Play (> 1 Actions + Return)
+=================
+
+PLAY pass_pass with Point Guard, Small Forward, Center {
+	Point Guard pass (chest) to Small Forward
+	Small Forward pass (bounce) to Center
+	BALL Center
+}
+
+---
+
+(start
+	(playbook
+		(play
+			(identifier)
+			(player_identifier)
+			(player_identifier)
+			(player_identifier)
+			(offensive_action
+				(pass
+					(player_identifier)
+					(pass_type)
+					(player_identifier)))
+			(offensive_action
+				(pass
+					(player_identifier)
+					(pass_type)
+					(player_identifier)))
+			(returns
+				(player_identifier)))))

@@ -1,0 +1,279 @@
+=================
+Person definition empty attribute
+=================
+
+PERSON Lebron James @ {
+
+INFORMATION
+	Height: 2.06m
+	Weight: 113.0kg
+	Wingspan: 2.14m
+	Age: 40years
+
+ATTRIBUTES
+}
+
+---
+
+(start
+	(player_def
+		(player_name
+			(player
+				(name)))
+		(player_personals
+			(float)
+			(float)
+			(float)
+			(num))
+		(player_attributes)))
+
+=================
+Person definition no units
+=================
+
+PERSON Lebron James @ {
+
+INFORMATION
+	Height: 2.06
+	Weight: 113.0
+	Wingspan: 2.14
+	Age: 40
+
+ATTRIBUTES
+}
+
+---
+
+(start
+	(player_def
+		(player_name
+			(player
+				(name)))
+		(player_personals
+			(float)
+			(float)
+			(float)
+			(num))
+		(player_attributes)))
+
+=================
+Person definition single attribute category
+=================
+
+PERSON Lebron James @ {
+
+INFORMATION
+	Height: 2.06m
+	Weight: 113.0kg
+	Wingspan: 2.14m
+	Age: 40years
+
+ATTRIBUTES
+	HANDLING
+	(
+		ball_handling: 0.95%
+	)
+}
+
+---
+
+(start
+	(player_def
+		(player_name
+			(player
+				(name)))
+		(player_personals
+			(float)
+			(float)
+			(float)
+			(num))
+		(player_attributes
+			(attribute_category
+				(identifier)
+				(attribute
+					(identifier)
+					(float))))))
+
+=================
+Person definition single attribute category no percentage
+=================
+
+PERSON Lebron James @ {
+
+INFORMATION
+	Height: 2.06m
+	Weight: 113.0kg
+	Wingspan: 2.14m
+	Age: 40years
+
+ATTRIBUTES
+	HANDLING
+	(
+		ball_handling: 0.95
+	)
+}
+
+---
+
+(start
+	(player_def
+		(player_name
+			(player
+				(name)))
+		(player_personals
+			(float)
+			(float)
+			(float)
+			(num))
+		(player_attributes
+			(attribute_category
+				(identifier)
+				(attribute
+					(identifier)
+					(float))))))
+
+=================
+Person definition multiple attribute single category
+=================
+
+PERSON Lebron James @ {
+
+INFORMATION
+	Height: 2.06m
+	Weight: 113.0kg
+	Wingspan: 2.14m
+	Age: 40years
+
+ATTRIBUTES
+	HANDLING
+	(
+		ball_handling: 0.95%
+		passing: 0.85%
+	)
+}
+
+---
+
+(start
+	(player_def
+		(player_name
+			(player
+				(name)))
+		(player_personals
+			(float)
+			(float)
+			(float)
+			(num))
+		(player_attributes
+			(attribute_category
+				(identifier)
+				(attribute
+					(identifier)
+					(float))
+				(attribute
+					(identifier)
+					(float))))))
+
+=================
+Person definition single attribute multiple category
+=================
+
+PERSON Lebron James @ {
+
+INFORMATION
+	Height: 2.06m
+	Weight: 113.0kg
+	Wingspan: 2.14m
+	Age: 40years
+
+ATTRIBUTES
+	HANDLING
+	(
+		ball_handling: 0.95%
+	)
+
+	SHOOTING
+	(
+		layup: 0.672%
+	)
+}
+
+---
+
+(start
+	(player_def
+		(player_name
+			(player
+				(name)))
+		(player_personals
+			(float)
+			(float)
+			(float)
+			(num))
+		(player_attributes
+			(attribute_category
+				(identifier)
+				(attribute
+					(identifier)
+					(float)))
+			(attribute_category
+				(identifier)
+				(attribute
+					(identifier)
+					(float))))))
+
+=================
+Person definition multiple attributes multiple categories
+=================
+
+PERSON Lebron James @ {
+
+INFORMATION
+	Height: 2.06m
+	Weight: 113.0kg
+	Wingspan: 2.14m
+	Age: 40years
+
+ATTRIBUTES
+	HANDLING
+	(
+		ball_handling: 0.95%
+		passing: 0.78%
+	)
+
+	SHOOTING
+	(
+		layup: 0.672%
+		three_point_shot: 0.350%
+	)
+}
+
+---
+
+(start
+	(player_def
+		(player_name
+			(player
+				(name)))
+		(player_personals
+			(float)
+			(float)
+			(float)
+			(num))
+		(player_attributes
+			(attribute_category
+				(identifier)
+				(attribute
+					(identifier)
+					(float))
+				(attribute
+					(identifier)
+					(float)))
+			(attribute_category
+				(identifier)
+				(attribute
+					(identifier)
+					(float))
+				(attribute
+					(identifier)
+					(float))))))

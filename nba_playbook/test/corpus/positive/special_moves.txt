@@ -1,0 +1,91 @@
+=================
+Player ID fouls Player ID
+=================
+
+Point Guard fouls ! Point Guard
+
+---
+
+(start
+    (special_action
+        (foul
+            (player_identifier)
+            (player_identifier
+                (opponent_identifier)))))
+
+=================
+Player ID Intentionally Fouls Player ID
+=================
+
+Point Guard intentionally fouls ! Point Guard
+
+---
+
+(start
+    (special_action
+        (foul
+            (player_identifier)
+            (player_identifier
+                (opponent_identifier)))))
+
+=================
+Player ID timeout
+=================
+
+Point Guard calls timeout
+
+---
+
+(start
+    (special_action
+        (timeout
+            (player_identifier))))
+
+=================
+Player Name fouls Player Name
+=================
+
+Paul George @ fouls ! Kawhi Leonard @
+
+---
+
+(start
+    (special_action
+        (foul
+            (player
+                (name))
+            (player
+                (opponent_identifier)
+                (name)))))
+
+=================
+Player Name Intentionally Fouls Player Name
+=================
+
+Paul George @ intentionally fouls ! Kawhi Leonard @
+
+---
+
+(start
+    (special_action
+        (foul
+            (player
+                (name))
+            (player
+                (opponent_identifier)
+                (name)))))
+
+=================
+Player Name timeout
+=================
+
+Paul George @ calls timeout
+
+
+---
+
+(start
+    (special_action
+        (timeout
+            (player
+                (name)))))

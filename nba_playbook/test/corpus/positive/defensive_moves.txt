@@ -1,0 +1,104 @@
+=================
+Block Shot
+=================
+
+Small Forward block shot by ! Ball Handler
+
+---
+
+(start
+    (defensive_action
+        (block
+            (player_identifier)
+            (player_identifier
+                (opponent_identifier)))))
+
+=================
+Block Shot Own Team
+=================
+
+Small Forward block shot by Ball Handler
+
+---
+
+(start
+    (defensive_action
+        (block
+            (player_identifier)
+            (player_identifier))))
+
+=================
+Steal
+=================
+
+Point Guard steal from ! On Ball
+
+---
+
+(start
+    (defensive_action
+        (steal
+            (player_identifier)
+            (player_identifier
+                (opponent_identifier)))))
+
+=================
+Contest Shot
+=================
+
+Small Forward contest shot by ! Point Guard
+
+---
+
+(start
+    (defensive_action
+        (contest
+            (player_identifier)
+            (player_identifier
+                (opponent_identifier)))))
+
+=================
+Switch
+=================
+
+Small Forward switch onto ! Off Ball
+
+---
+
+(start
+    (defensive_action
+        (switch
+            (player_identifier)
+            (player_identifier
+                (opponent_identifier)))))
+
+=================
+Double Team
+=================
+
+Small Forward double team on ! Point Guard
+
+---
+
+(start
+    (defensive_action
+        (double_team
+            (player_identifier)
+            (player_identifier
+                (opponent_identifier)))))
+
+=================
+Double Team with Second
+=================
+
+Shooting Guard double team on ! On Ball with Point Guard
+
+---
+
+(start
+    (defensive_action
+        (double_team
+            (player_identifier)
+            (player_identifier
+                (opponent_identifier))
+            (player_identifier))))
