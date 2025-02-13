@@ -100,6 +100,14 @@ CALCULATE pass_pass {
     RETURN 1.0;
 }
 
+//Setting up the court
+SETUP with la_lakers {
+    la_lakers[0] at Top of Key
+    la_lakers[1] at Elbow Left
+    la_lakers[2] at Elbow Right
+    BALL Lebron James @
+}
+
 // Evaluation of play
 EVAL with Lebron James @, la_lakers {
     pass_shoot(

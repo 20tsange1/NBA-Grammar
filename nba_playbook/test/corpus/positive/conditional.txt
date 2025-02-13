@@ -1,0 +1,359 @@
+=================
+Condition Single Boolean
+=================
+
+IF true {
+}
+
+---
+
+(start
+	(conditional
+		(condition
+			(compare
+				(bool)))))
+
+=================
+Condition Single Negated Boolean
+=================
+
+IF NOT true {
+}
+
+---
+
+(start
+	(conditional
+		(condition
+			(negate_condition
+				(condition
+					(compare
+						(bool)))))))
+
+=================
+Condition Single Negated Bracketed Boolean
+=================
+
+IF NOT [true] {
+}
+
+---
+
+(start
+	(conditional
+		(condition
+			(negate_condition
+				(condition
+					(sub_condition
+						(condition
+							(compare
+								(bool)))))))))
+
+=================
+Condition Bracketed AND
+=================
+
+IF [true AND true] {
+}
+
+---
+
+(start
+	(conditional
+		(condition
+			(sub_condition
+				(condition
+					(compare
+						(bool)))
+				(condition
+					(compare
+						(bool)))))))
+
+=================
+Condition Bracketed OR
+=================
+
+IF [true OR false] {
+}
+
+---
+
+(start
+	(conditional
+		(condition
+			(sub_condition
+				(condition
+					(compare
+						(bool)))
+				(condition
+					(compare
+						(bool)))))))
+
+=================
+Condition Negated Bracketed Boolean Expression
+=================
+
+IF NOT [true OR false] {
+}
+
+---
+
+(start
+	(conditional
+		(condition
+			(negate_condition
+				(condition
+					(sub_condition
+						(condition
+							(compare
+								(bool)))
+						(condition
+							(compare
+								(bool)))))))))
+
+=================
+Condition Bracketed Inner Negation
+=================
+
+IF [true OR NOT fourth_quarter] {
+}
+
+---
+
+(start
+	(conditional
+		(condition
+			(sub_condition
+				(condition
+					(compare
+						(bool)))
+				(condition
+					(negate_condition
+						(condition
+							(compare
+								(identifier)))))))))
+
+=================
+Condition Nested Bracket
+=================
+
+IF [[true AND true] OR [true]] {
+}
+
+---
+
+(start
+	(conditional
+		(condition
+			(sub_condition
+				(condition
+					(sub_condition
+						(condition
+							(compare
+								(bool)))
+						(condition
+							(compare
+								(bool)))))
+				(condition
+					(sub_condition
+						(condition
+							(compare
+								(bool)))))))))
+
+=================
+Condition If Otherwise
+=================
+
+IF true {
+}
+OTHERWISE
+{
+}
+
+---
+
+(start
+	(conditional
+		(condition
+			(compare
+				(bool)))))
+
+=================
+Condition Comparison
+=================
+
+IF 0.5 == 0.7 {
+}
+
+---
+
+(start
+	(conditional
+		(condition
+			(compare
+				(float)
+				(comparator)
+				(float)))))
+
+=================
+Condition Different Types Comparison - Float Attribute
+=================
+
+IF 0.5 == On Ball.three_point_shot {
+}
+
+---
+
+(start
+	(conditional
+		(condition
+			(compare
+				(float)
+				(comparator)
+				(attribute_access
+					(player_identifier)
+					(identifier))))))
+
+=================
+Condition Different Types Comparison - Float Variable
+=================
+
+IF 0.5 == wind_speed {
+}
+
+---
+
+(start
+	(conditional
+		(condition
+			(compare
+				(float)
+				(comparator)
+				(identifier)))))
+
+=================
+Condition Different Types Comparison - Float Num
+=================
+
+IF 0.5 == 5 {
+}
+
+---
+
+(start
+	(conditional
+		(condition
+			(compare
+				(float)
+				(comparator)
+				(num)))))
+
+=================
+Condition Comparison Operator
+=================
+
+IF 0.5 >= 0.7 {
+}
+
+---
+
+(start
+	(conditional
+		(condition
+			(compare
+				(float)
+				(comparator)
+				(float)))))
+
+=================
+Condition Comparison Operator Single
+=================
+
+IF 0.5 < 0.7 {
+}
+
+---
+
+(start
+	(conditional
+		(condition
+			(compare
+				(float)
+				(comparator)
+				(float)))))
+
+=================
+Condition with Actions
+=================
+
+IF [true] {
+Luka Doncic @ pass to Lebron James@
+Lebron James @ shoot
+}
+
+---
+
+(start
+	(conditional
+		(condition
+			(sub_condition
+				(condition
+					(compare
+						(bool)))))
+		(offensive_action
+			(pass
+				(player
+					(name))
+				(player
+					(name))))
+		(offensive_action
+			(shoot
+				(player
+					(name))))))
+
+=================
+Condition with Actions and Alternative
+=================
+
+IF [true] {
+Lebron James @ shoot
+}
+OTHERWISE {
+Luka Doncic @ shoot
+}
+
+---
+
+(start
+	(conditional
+		(condition
+			(sub_condition
+				(condition
+					(compare
+						(bool)))))
+		(offensive_action
+			(shoot
+				(player
+					(name))))
+		(offensive_action
+			(shoot
+				(player
+					(name))))))
+
+
+=================
+Condition with Player Location
+=================
+
+IF Point Guard at Top of Key {
+}
+
+---
+
+(start
+    (conditional
+        (condition
+            (compare
+                (player_location
+                    (player_identifier)
+                    (location))))))

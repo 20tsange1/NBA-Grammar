@@ -226,3 +226,45 @@ EVAL {
 			(evaluation_function
 				(function_chain
 					(identifier))))))
+
+=================
+Evaluation Identifier Element Access
+=================
+
+EVAL with la_lakers {
+    pass_shoot(la_lakers[0])
+}
+
+---
+
+(start
+	(evaluate
+        (identifier)
+        (evaluation_holder
+			(evaluation_function
+				(function_chain
+					(identifier)
+					(identifier)
+					(array_access
+						(num)))))))
+
+=================
+Evaluation Identifier Slice
+=================
+
+EVAL with la_lakers[:2] {
+    pass_shoot(la_lakers)
+}
+
+---
+
+(start
+	(evaluate
+        (identifier)
+		(array_access
+			(num))
+		(evaluation_holder
+			(evaluation_function
+				(function_chain
+					(identifier)
+					(identifier))))))

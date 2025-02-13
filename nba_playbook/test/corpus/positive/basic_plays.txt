@@ -174,3 +174,43 @@ PLAY pass_pass with Point Guard, Small Forward, Center {
 					(player_identifier)))
 			(returns
 				(player_identifier)))))
+
+
+=================
+Play with Conditional
+=================
+
+PLAY dribble_play with On Ball, !Off Ball {
+	IF !Off Ball at Top of Key {
+		On Ball dribble (hesitation) to Left Wing
+	}
+	OTHERWISE {
+		On Ball shoot (jumper)
+	}
+}
+
+---
+
+(start
+	(playbook
+        (play
+			(identifier)
+			(player_identifier)
+			(player_identifier
+            (opponent_identifier))
+		(conditional
+			(condition
+				(compare
+					(player_location
+						(player_identifier
+							(opponent_identifier))
+				(location))))
+            (offensive_action
+				(dribble
+					(player_identifier)
+					(dribble_move)
+					(location)))
+            (offensive_action
+				(shoot
+					(player_identifier)
+						(shoot_type)))))))

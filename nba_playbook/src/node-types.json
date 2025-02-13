@@ -1,5 +1,20 @@
 [
   {
+    "type": "array_access",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "num",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "attribute",
     "named": true,
     "fields": {},
@@ -7,6 +22,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "bool",
+          "named": true
+        },
         {
           "type": "float",
           "named": true
@@ -57,6 +76,29 @@
     }
   },
   {
+    "type": "ball_holder",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array_access",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "player",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "block",
     "named": true,
     "fields": {},
@@ -74,6 +116,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "bool",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "calculate",
@@ -181,6 +228,104 @@
         },
         {
           "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "comparator",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "compare",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_access",
+          "named": true
+        },
+        {
+          "type": "bool",
+          "named": true
+        },
+        {
+          "type": "comparator",
+          "named": true
+        },
+        {
+          "type": "float",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "num",
+          "named": true
+        },
+        {
+          "type": "player_location",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "compare",
+          "named": true
+        },
+        {
+          "type": "negate_condition",
+          "named": true
+        },
+        {
+          "type": "sub_condition",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "conditional",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "condition",
+          "named": true
+        },
+        {
+          "type": "conditional",
+          "named": true
+        },
+        {
+          "type": "defensive_action",
+          "named": true
+        },
+        {
+          "type": "offensive_action",
+          "named": true
+        },
+        {
+          "type": "special_action",
           "named": true
         }
       ]
@@ -328,6 +473,10 @@
       "required": true,
       "types": [
         {
+          "type": "array_access",
+          "named": true
+        },
+        {
           "type": "evaluation_holder",
           "named": true
         },
@@ -417,6 +566,10 @@
       "required": true,
       "types": [
         {
+          "type": "array_access",
+          "named": true
+        },
+        {
           "type": "function_chain",
           "named": true
         },
@@ -440,6 +593,21 @@
     "type": "name",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "negate_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "condition",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "num",
@@ -517,6 +685,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "conditional",
+          "named": true
+        },
         {
           "type": "defensive_action",
           "named": true
@@ -632,6 +804,37 @@
     }
   },
   {
+    "type": "player_location",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array_access",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "location",
+          "named": true
+        },
+        {
+          "type": "player",
+          "named": true
+        },
+        {
+          "type": "player_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "player_name",
     "named": true,
     "fields": {},
@@ -727,6 +930,52 @@
     }
   },
   {
+    "type": "setup",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array_access",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "player",
+          "named": true
+        },
+        {
+          "type": "setup_holder",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "setup_holder",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "ball_holder",
+          "named": true
+        },
+        {
+          "type": "player_location",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "shoot",
     "named": true,
     "fields": {},
@@ -780,10 +1029,14 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "calculate",
+          "named": true
+        },
+        {
+          "type": "conditional",
           "named": true
         },
         {
@@ -804,6 +1057,10 @@
         },
         {
           "type": "player_def",
+          "named": true
+        },
+        {
+          "type": "setup",
           "named": true
         },
         {
@@ -831,6 +1088,21 @@
         },
         {
           "type": "player_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sub_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "condition",
           "named": true
         }
       ]
@@ -957,11 +1229,23 @@
     "named": false
   },
   {
+    "type": "<",
+    "named": false
+  },
+  {
     "type": "=",
     "named": false
   },
   {
+    "type": ">",
+    "named": false
+  },
+  {
     "type": "@",
+    "named": false
+  },
+  {
+    "type": "AND",
     "named": false
   },
   {
@@ -1021,6 +1305,10 @@
     "named": false
   },
   {
+    "type": "IF",
+    "named": false
+  },
+  {
     "type": "INFORMATION",
     "named": false
   },
@@ -1042,6 +1330,18 @@
   },
   {
     "type": "Low Post",
+    "named": false
+  },
+  {
+    "type": "NOT",
+    "named": false
+  },
+  {
+    "type": "OR",
+    "named": false
+  },
+  {
+    "type": "OTHERWISE",
     "named": false
   },
   {
@@ -1089,6 +1389,10 @@
     "named": false
   },
   {
+    "type": "SETUP",
+    "named": false
+  },
+  {
     "type": "Shooting Guard",
     "named": false
   },
@@ -1110,6 +1414,14 @@
   },
   {
     "type": "Wingspan",
+    "named": false
+  },
+  {
+    "type": "[",
+    "named": false
+  },
+  {
+    "type": "]",
     "named": false
   },
   {
@@ -1149,6 +1461,10 @@
     "named": false
   },
   {
+    "type": "comment",
+    "named": true
+  },
+  {
     "type": "contest",
     "named": false
   },
@@ -1182,6 +1498,10 @@
   },
   {
     "type": "fadeaway",
+    "named": false
+  },
+  {
+    "type": "false",
     "named": false
   },
   {
@@ -1302,6 +1622,10 @@
   },
   {
     "type": "to",
+    "named": false
+  },
+  {
+    "type": "true",
     "named": false
   },
   {

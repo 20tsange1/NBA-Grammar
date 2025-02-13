@@ -1,10 +1,21 @@
+PERSON Lebron James @ {
 
-EVAL {
-    pass_shoot(
-        pass_pass(
-            Luca Doncic @, 
-            Lebron James @
-            ), 
-        luca_magic(Luca Doncic @)
+    INFORMATION
+        Height: 2.06m
+        Weight: 113.0kg
+        Wingspan: 2.14m
+        Age: 40years
+
+    ATTRIBUTES
+        HANDLING
+        (
+            ball_handling: 0.95%
+            passing: 0.78%
         )
-    }
+
+        SHOOTING
+        (
+            layup: 0.672%
+            three_point_shot: 0.350%
+        )
+}

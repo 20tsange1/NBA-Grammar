@@ -277,3 +277,26 @@ ATTRIBUTES
 				(attribute
 					(identifier)
 					(float))))))
+
+
+
+=================
+Person definition attribute boolean
+=================
+
+PERSON Lebron James @ {
+
+INFORMATION
+    Height: 2.06
+    Weight: 113.0
+    Wingspan: 2.14
+    Age: 40
+
+ATTRIBUTES
+	HANDLING
+	(
+		left_handed: true
+	)
+}
+
+---

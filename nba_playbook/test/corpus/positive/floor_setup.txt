@@ -1,0 +1,190 @@
+=================
+Floor Setup Single Return
+=================
+
+SETUP {
+    BALL Lebron James @
+}
+
+---
+
+(start
+    (setup
+        (setup_holder
+            (ball_holder
+                (player
+                    (name))))))
+
+=================
+Floor Setup Single Return with Player
+=================
+
+SETUP with Lebron James @ {
+    BALL Lebron James @
+}
+
+---
+
+(start
+    (setup
+        (player
+            (name))
+        (setup_holder
+            (ball_holder
+                (player
+                    (name))))))
+
+=================
+Floor Setup Normal Single Player
+=================
+
+SETUP with Lebron James @ {
+    Lebron James @ at Top of Key
+    BALL Lebron James @
+}
+
+---
+
+(start
+    (setup
+        (player
+            (name))
+        (setup_holder
+            (player_location
+                (player
+                    (name))
+                (location))
+            (ball_holder
+                (player
+                (name))))))
+
+=================
+Floor Setup Normal Double Player
+=================
+
+SETUP with Lebron James @, Luka Doncic @ {
+    Lebron James @ at Top of Key
+    Luka Doncic @ at Elbow Left
+    BALL Lebron James @
+}
+
+---
+
+(start
+    (setup
+        (player
+            (name))
+        (player
+            (name))
+        (setup_holder
+            (player_location
+                (player
+                    (name))
+                (location))
+            (player_location
+                (player
+                    (name))
+                (location))
+            (ball_holder
+                (player
+                    (name))))))
+
+=================
+Floor Setup Single Return Identifier
+=================
+
+SETUP with attack_player {
+    BALL attack_player
+}
+
+---
+
+(start
+    (setup
+        (identifier)
+        (setup_holder
+            (ball_holder
+                (identifier)))))
+
+=================
+Floor Setup Single Normal Identifier
+=================
+
+SETUP with attack_player {
+    attack_player at Top of Key
+    BALL attack_player
+}
+
+---
+
+(start
+    (setup
+        (identifier)
+        (setup_holder
+            (player_location
+                (identifier)
+                (location))
+            (ball_holder
+                (identifier)))))
+
+=================
+Floor Setup Identifier Element Access
+=================
+
+SETUP with la_lakers {
+    BALL la_lakers[0]
+}
+
+---
+
+(start
+    (setup
+        (identifier)
+        (setup_holder
+          (ball_holder
+            (identifier)
+            (array_access
+              (num))))))
+
+=================
+Floor Setup Identifier Array Slice
+=================
+
+SETUP with la_lakers[0:4] {
+    BALL la_lakers[0]
+}
+
+---
+
+(start
+      (setup
+        (identifier)
+        (array_access
+            (num)
+            (num))
+        (setup_holder
+            (ball_holder
+                (identifier)
+                (array_access
+                    (num))))))
+
+=================
+Floor Setup Identifier Array Negative Slice
+=================
+
+SETUP with la_lakers[-1:] {
+    BALL la_lakers[-1]
+}
+
+---
+
+(start
+    (setup
+        (identifier)
+        (array_access
+            (num))
+        (setup_holder
+            (ball_holder
+                (identifier)
+                (array_access
+                    (num))))))

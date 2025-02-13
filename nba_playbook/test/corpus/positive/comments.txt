@@ -1,0 +1,94 @@
+====================
+Single line comments
+====================
+
+// NBA language
+//NBA language
+//    NBA language
+
+---
+
+(start 
+  (comment)
+  (comment)
+  (comment))
+
+====================
+Block comments
+====================
+
+/* NBA Language*/
+
+/* NBA language */
+
+/* NBA Language
+   */
+
+/* 
+   NBA Language */
+
+/* 
+   NBA Language 
+ */
+
+/* 
+  
+
+   NBA Language 
+
+
+ */
+---
+
+(start 
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment))
+
+
+====================
+Inline comments
+====================
+
+PLAY dribble_play with On Ball, !Off Ball { // First Play
+	IF !Off Ball at Top of Key { // When defender is at the top of the 3 point line
+		On Ball dribble (hesitation) to Left Wing // Drive away
+	} 
+	OTHERWISE { // Defender is not there
+		On Ball shoot (jumper) // Shoot shot
+	}
+}
+
+---
+
+(start
+    (playbook
+        (play
+            (identifier)
+            (player_identifier)
+            (player_identifier
+                (opponent_identifier))
+            (comment)
+            (conditional
+                (condition
+                    (compare
+                        (player_location
+                            (player_identifier
+                                (opponent_identifier))
+                            (location))))
+            (comment)
+                (offensive_action
+                    (dribble
+                        (player_identifier)
+                        (dribble_move)
+                        (location)))
+            (comment)
+            (comment)
+            (offensive_action
+                (shoot
+                    (player_identifier)
+                    (shoot_type)))
+(comment)))))
