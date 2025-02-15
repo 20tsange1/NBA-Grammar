@@ -2,11 +2,30 @@
 
 ## Introduction
 
-The language in question, designed for this assignment, is the NBA Calculator, a domain specific language catering towards NBA analysts seeking to calculate the probabilistic success of a certain move or set of plays. Concerning this coursework, it is assumed that a magical back-end exists to carry out certain functionality along with carrying out calculations. In this case, the language serves to create a model with with analysts can input player's attributes, declare plays, and evaluate such plays. Furthermore, the langauge is designed with flexibility in mind, allowing calculations for actions (such as shooting, passing, and more) to be overridden, providing comprehensive evaluation functionality, whereby the analyst can provide their own formulas and success rates. 
+The language in question, designed for this assignment, is the NBA Calculator, a domain specific language catering towards NBA analysts seeking to calculate the probabilistic success of a certain move or set of plays. Concerning this coursework, it is assumed that a magical back-end exists to carry out certain functionality along with carrying out calculations. In this case, the language serves to create a model with which analysts can input player's attributes, declare plays, and evaluate such plays. Furthermore, the langauge is designed with flexibility in mind, allowing calculations for actions (such as shooting, passing, and more) to be overridden, providing comprehensive evaluation functionality, whereby the analyst can provide their own formulas and success rates. By creating a new language, there was much greater flexibility on construction, however, each individual component had to be deliberated upon and designed for seamless incorporation.
 
-## Example Runthrough
+## Motivation and Implementation
 
-In order to more closely examine the purpose of the language, a complete example will be provided along with an expected output. This will serve to highlight the usability of the language and its readability, both of which were in focus when designing the language.
+In order to more closely examine the purpose and motivation of the language, a complete example will be provided along with an expected output. Given that the language is to be used by analysts, usability and readability were in focus when designing the language. A focus was placed on using keywords and structures that provide an illusion of plain english, such that it can be easily understood without prior training on the language. Furthermore, an interpreted-style language is a key inspiration, with the aim of allowing analysts to use building blocks which are processed from top to bottom, and are evaluated as is before moving to the next block.
+
+The building blocks in question are:
+
+**PERSON**
+: For defining a player's characteristics and attributes. Requires assignment of a player name.
+
+**TEAM**
+: For defining a team of players (and/or opposition players) for easy future reference.
+
+**PLAY**
+: For defining a set play, a chain of actions and moves within basketball.
+
+**CALCULATION**
+: For expressing a calculation of an action or play, overriding the default success probability calculation.
+
+**EVAL**
+: For evaluating a set of plays or actions, providing analysts with a statistical probability of success.
+
+Each building block begins with a capitalised identifier, allowing it to be easily identified as one such building block along with the use of curly-brackets ({}) to denote and enclose the contents of the block. These building blocks are expected to be pieced together, building up a simulation of a basketball court and the set of actions that take place during a game. Analysts can add players as they see fit, define teams wherever necessary, define plays which are relevant, and then evaluate these plays for its success rate. The simplicity of using building blocks (especially with a purposely low number of them), allows the language to be easily managed, as it is instantly clear what each block pertains to.
 
 ### Player Declaration
 ```
@@ -31,10 +50,15 @@ PERSON Lebron James @ {
             layup: 0.672%
             three_point_shot: 0.350%
         )
+
+        CHARACTERISTICS
+        (
+            left_handed: true
+        )
 }
 ```
 
-The player definition above allows player's attributes and characteristics to be defined. It initially begins with the "PERSON" keyword, followed by the player name. The following information is then contained within a certain format, whilst attributes are extendable and defined by the analyst. As the field of analytics is continously in flux, new attributes or characteristics may be added, requiring this extendability. These attributes can then be referenced in other parts of the language, allowing analysts to use it within calculations.
+As with the building blocks, this player block initially begins with the "PERSON" keyword, followed by the player name. The proceeding player information is then contained within a predefined format, whilst attributes are extendable and defined by the analyst. As the field of analytics is continously in flux, new attributes or characteristics may be added, requiring this extendability. These attributes can take the form of a float, boolean or number (Although type checking will be handled by the back-end), and is designed to be referenced in other parts of the language (via `Player Identifier.attribute`), allowing analysts to use it within calculations. This implementation follows a json-like structure due to its readability, nesting the attributes under subsections which in turn can be used as a categorisation token.
 
 ### Team Declaration
 
@@ -44,9 +68,24 @@ TEAM la_lakers (Lebron James @, Luka Doncic @, Austin Reaves @)
 TEAM la_bucks_matchup (Lebron James @, ! Giannis Antetokounmpo @)
 ```
 
-As it is tedious to continously rewrite the names of players over and over again, team declarations are provided, allowing you to predefine tuples containing the players. It is assumed that the magical backend will handle checking for unique identifiers, along with ensuring that players included have been defined. An exclamation mark (!) is used to denote an opposing player. This provides the analysts with the ability to include the stats and attributes of opponents into their calculations.
+As it is tedious to continously rewrite the names of players over and over again, team declarations are provided, allowing you to predefine tuples containing the players – this enables it for use within other blocks such as the evaluation block. It is assumed that the magical backend will handle checking for unique identifiers, along with ensuring that players included have been defined. An exclamation mark (!) is used to denote an opposing player. This provides the analysts with the ability to include the stats and attributes of opponents into their calculations. Within the language itself, this will show up as a named node, allowing easy classification of the player as an opponent by checking for the appearance of this node.
 
-As can be seen, players are denoted their names with the first letter capitalised followed by the @ sign.
+When designing the grammar, it was noticed that allowing flexibility in identifier names, block names, and player names led to the parser incorrectly tokenising the different names even when a right or left precedence was set. As such, to more clearly denote each name type, each name type was designed to avoid conflicts:
+
+**Blocks**
+: Complete capitalisation
+
+**Player Names**
+: First letter of each word capitalised, followed by an @ at the end
+
+**Identifiers**
+: Lowercase first letter
+
+**Player Identifier & Locations**
+: Fixed set of position identifiers, (Point Guard, Shooting Guard, On Ball ...) and location identifiers (Top of Key, Elbow Left, Left Wing ...)
+
+None of these types can have the same prefix after the first letter, allowing it to be parsed more easily whilst still allowing for flexibility in the naming conventions. Particularly in the case of the player names, it is also immediately obvious to the analysts what a name/identifier is being used for. A less flexible, team specific DSL may require hard-coding of the players names, however, as this language is made to develop extensible analysis programs, new player names may need to be added at any times, which is why flexibility is required.
+
 
 ### Play Declaration
 
@@ -64,6 +103,7 @@ PLAY pass_pass with Point Guard, Small Forward, Center {
 	BALL Center
 }
 
+// Play Declaration
 PLAY dribble_play with On Ball, !Off Ball {
 	IF [!Off Ball at Top of Key AND !Off Ball.defensive_rating >= 75] {
 		On Ball dribble (hesitation) to Left Wing
@@ -74,11 +114,24 @@ PLAY dribble_play with On Ball, !Off Ball {
 }
 ```
 
-Additionally, Basketball is a game built up of different moves and actions chained together and executed sequentially. In order to enable that, the language provides the ability to declare plays, set moves whereby 1 or more actions (passing, shooting, driving) are listed sequentially – along with their respective types, e.g chest or bounce or lobs for passing. In a real life basketball game, these correlate to the moves that players can take. In this case, a play can be seen as the equivalent of a function, requiring the analyst to use identifiers for the players involved (arguments) and consequently use them within the play. It is also assumed that the checking of the validity of the identifiers and their usage will be checked by the magical back-end.
+Additionally, Basketball is a game built up of different moves and actions chained together and executed sequentially. In order to enable that, the language provides the ability to declare plays, set moves whereby 1 or more actions (passing, shooting, driving) are listed sequentially – along with their respective types, e.g chest or bounce or lobs for passing. In a real life basketball game, these correlate to the moves that players can take and the different ways they are carried out. 
 
-Plays can either return the respective player with the ball, or not return anything at all, signifying whether the play retains the ball or not – For example, when the ball is shot, the team no longer has possession of the ball.
+In this case, a play takes the form of a function-like block, requiring the analyst to use identifiers for the players involved (arguments) and consequently use them within the play. It is assumed that the checking of the validity of the identifiers and their usage will be checked by the magical back-end. Plays can either return the respective player with the ball, or not return anything at all, signifying whether a play retains the ball or not – For example, when the ball is shot, the team will no longer have possession of the ball. This also allows us to then use plays within other plays, as it can evaluate to a player who is holding the ball.
 
-The language also provides the ability to define conditions and prerequisites to an action, requiring these conditions to be true or excluding an action / providing an alternative action. Conditions can also be chained, allowing for more complex boolean expressions to be formed (Expressions using AND and OR).
+In order to more easily identify a chain of actions within the language and reduce the depth of the resultant AST, a flat structure has been created, leveraging the repeat1 function within tree-sitter to enable these actions to be laid out on a single equal level. During evaluation of the AST, it is then possible to know directly the number of and types of actions with just a shallow exploration of the AST. Additionally, actions do not require a symbol to end each line, a liberty taken in design, allowing analysts to not have to fret over trivial problems such as missing semi-colons. 
+
+The language also provides the ability to define conditions and prerequisites to an action, requiring these conditions to be true or excluding an action / providing an alternative action. This follows an IF {} OTHERWISE {} structure, where the otherwise segment is optional as not all conditionals require an alternative. It is also possible to nest conditionals, building up a greater depth of conditional expressions. Conditions can also be chained, allowing for more complex boolean expressions to be formed (Expressions using AND and OR). This is important towards analysts, as certain moves may have complex prerequisites that need to be fulfilled before it can be carried out, or in some cases there may be a better alternative, e.g if a player has a low pass rating, it may be more effective for them to dribble the ball to a specific location.
+
+```
+IF NOT [[a AND b] OR NOT [c AND d] OR [c OR a]] {
+    IF {
+    }
+}
+```
+
+In order to prevent the incorrect evaluation of conditionals, it is designed that any condition within the same set of square brackets ([]) must be either conjunctions (AND) or disjunctions (OR), not both. This allows for better enforcement of the two, making evaluation of a conditional more straightforward, preventing ambiguity via the language design and requiring analysts to explicity enforce precedence.
+
+Conditions would not be complete if it were not encapsulative of all the different types of numerical and boolean comparisons (e.g >=, ==), and as such, each one has been included, constructing a comprehensive comparison suite. Analysts may also want to negate conditions in cases where a condition should not be true, and this is enabled through the use of the NOT keyword in front of a condition. As a bonus, both "=" and "==" are enabled and can be used interchangeably depending on analyst preference. 
 
 ### Calculation Expressions
 
@@ -96,7 +149,10 @@ CALCULATE SHOOT with On Ball {
 }
 ```
 
-Moving to the probabilistic calculations that the language enables, it first begins with the definition of the probability of success of each move. While it is assumed that a default probability is provided, this language enables the analyst to define their own success probabilities, allowing analysts to implement unique and innovative analytical solutions. In this case, it is possible to express all equations using the symbols (+ for addition, - for Subtraction, * for multiplication, / for division, % for modulus, // for floor division, ** for power). This calculation then returns a float value <= 1.0 (To be checked by magical backend) - limited by the maximum probability of success (1.0).
+Moving to the probabilistic calculations that the language enables, it first begins with the definition of the probability of success of each move. While it is assumed that a default probability is provided, this language enables the analyst to define their own success probabilities, allowing analysts to implement unique and innovative analytical solutions. 
+
+
+In this case, it is possible to express all equations using the symbols (+ for addition, - for Subtraction, * for multiplication, / for division, % for modulus, // for floor division, ** for power). This calculation then returns a float value <= 1.0 (To be checked by magical backend) - limited by the maximum probability of success (1.0).
 
 ```
 // Overriding Play Calculation
@@ -176,8 +232,6 @@ result = pass_pass * pass_shoot
 ```
 
 Resultantly, analysts are provided with a success probability which can help them analyse their moves against an opposing team and decide on the most optimal plays for the team to make. Although tailored in this case to NBA analysts, moves can be easily altered within the language to support a wider range of sports. Altogether, the language allows analysts to define players, define plays, express calculations, and evaluate a game-like scenario for it's chance of success.
-
-## Design
 
 ## Instruction Manual
 
