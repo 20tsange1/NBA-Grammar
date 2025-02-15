@@ -187,3 +187,13 @@ Also lets you then create matchups, teams and so on.
 Change how what strings are permitted in each section, makes it distinct. i.e capital first letter for names, capital for sections, lowercase for identifier.
 
 How about if else 
+
+You can enforce action type either at the parser level or the back-end
+
+By having the following = as optional, we also allow a standalone = to be the comparator.
+
+Feature I like is also the chaining of comparators, helps you do between ranges.
+
+Print statement?
+
+I like the flexibility of python, I don't like the use of whitespaces for formatting.
