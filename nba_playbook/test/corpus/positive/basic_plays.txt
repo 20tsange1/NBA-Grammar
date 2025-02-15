@@ -214,3 +214,53 @@ PLAY dribble_play with On Ball, !Off Ball {
 				(shoot
 					(player_identifier)
 						(shoot_type)))))))
+
+
+=================
+Play with Conditional Multiple
+=================
+
+PLAY dribble_play with On Ball, !Off Ball {
+	IF [!Off Ball at Top of Key AND !Off Ball.defensive_rating >= 75] {
+		On Ball dribble (hesitation) to Left Wing
+	}
+	OTHERWISE {
+		On Ball shoot (jumper)
+	}
+}
+
+---
+
+(start
+	(playbook
+		(play
+			(identifier)
+			(player_identifier)
+			(player_identifier
+				(opponent_identifier))
+			(conditional
+				(condition
+					(sub_condition
+						(condition
+							(compare
+								(player_location
+									(player_identifier
+										(opponent_identifier))
+									(location))))
+						(condition
+							(compare
+								(attribute_access
+									(player_identifier
+										(opponent_identifier))
+									(identifier))
+								(comparator)
+								(num)))))
+            (offensive_action
+				(dribble
+					(player_identifier)
+					(dribble_move)
+					(location)))
+			(offensive_action
+				(shoot
+					(player_identifier)
+					(shoot_type)))))))

@@ -1,6 +1,7 @@
 {
   "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
   "name": "nba_playbook",
+  "word": "string_capitalised",
   "rules": {
     "start": {
       "type": "REPEAT",
@@ -1718,6 +1719,35 @@
           "name": "identifier"
         },
         {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "+"
+                },
+                {
+                  "type": "STRING",
+                  "value": "-"
+                },
+                {
+                  "type": "STRING",
+                  "value": "/"
+                },
+                {
+                  "type": "STRING",
+                  "value": "*"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
           "type": "STRING",
           "value": "="
         },
@@ -1788,7 +1818,11 @@
               },
               {
                 "type": "STRING",
-                "value": "/ /"
+                "value": "//"
+              },
+              {
+                "type": "STRING",
+                "value": "**"
               }
             ]
           },
@@ -2913,27 +2947,17 @@
       "type": "PREC_RIGHT",
       "value": 0,
       "content": {
-        "type": "REPEAT1",
-        "content": {
-          "type": "SYMBOL",
-          "name": "_digit"
-        }
+        "type": "PATTERN",
+        "value": "[0-9]+"
       }
     },
     "num": {
       "type": "PREC_RIGHT",
       "value": 0,
       "content": {
-        "type": "REPEAT1",
-        "content": {
-          "type": "SYMBOL",
-          "name": "_digit"
-        }
+        "type": "PATTERN",
+        "value": "[0-9]+"
       }
-    },
-    "_digit": {
-      "type": "PATTERN",
-      "value": "[0-9]"
     },
     "comment": {
       "type": "TOKEN",
