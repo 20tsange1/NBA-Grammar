@@ -96,6 +96,10 @@ module.exports = grammar({
     )
     ),
     
+
+    // ---------------------------------
+    // ------------ SHOOT -------------
+    // ---------------------------------
     shoot: $ => (seq(choice(
       $.player
       ,$.player_identifier
@@ -114,6 +118,9 @@ module.exports = grammar({
     ), ")")
     ),
     
+    // -------------------------------
+    // ------------ PASS -------------
+    // -------------------------------
     pass: $ => choice(
       seq($.player, "pass", optional($.pass_type), "to", $.player)
       ,seq($.player_identifier, "pass", optional($.pass_type), "to", $.player_identifier)
@@ -129,13 +136,19 @@ module.exports = grammar({
     ), ")")
     ),
     
+    // ---------------------------------
+    // ------------ SCREEN -------------
+    // ---------------------------------
     screen: $ => choice(
       seq($.player, "set screen", "for", $.player, optional((seq("at", $.location)
     )))
       ,seq($.player_identifier, "set screen", "for", $.player_identifier, optional((seq("at", $.location)
     )))
     ),
-    
+
+    // ----------------------------------
+    // ------------ DRIBBLE -------------
+    // ----------------------------------
     dribble: $ => choice(
       seq($.player, "dribble", optional($.dribble_move), "to", $.location)
       ,seq($.player_identifier, "dribble", optional($.dribble_move), "to", $.location)
@@ -149,7 +162,11 @@ module.exports = grammar({
       ,"in-and-out"
     ), ")")
     ),
-    
+
+
+    // ------------------------------
+    // ------------ CUT -------------
+    // ------------------------------
     cut: $ => choice(
       seq($.player, "cut", optional($.cut_type), "to", $.location)
       ,seq($.player_identifier, "cut", optional($.cut_type), "to", $.location)
@@ -162,12 +179,18 @@ module.exports = grammar({
       ,"fade"
     ), ")")
     ),
-    
+
+    // ---------------------------------
+    // ------------ POSTUP -------------
+    // ---------------------------------
     post_up: $ => choice(
       seq($.player, "post up", "at", $.location)
       ,seq($.player_identifier, "post up", "at", $.location)
     ),
     
+    // ------------------------------------------
+    // ------------ DEFENSIVE PLAYS -------------
+    // ------------------------------------------
     block: $ => choice(
       seq($.player, "block", "shot", "by", $.player)
       ,seq($.player_identifier, "block", "shot", "by", $.player_identifier)
@@ -195,6 +218,9 @@ module.exports = grammar({
     )))
     ),
     
+    // ----------------------------------------
+    // ------------ SPECIAL PLAYS -------------
+    // ----------------------------------------
     foul: $ => prec(2,choice(
       seq($.player, optional("intentionally"), "fouls", $.player)
       ,seq($.player_identifier, optional("intentionally"), "fouls", $.player_identifier)
@@ -205,6 +231,10 @@ module.exports = grammar({
       ,seq($.player_identifier, "calls timeout")
     ),
 
+
+    // ------------------------------------
+    // ------------ LOCATIONS -------------
+    // ------------------------------------
     // 
     // Fixed locations, implemented as a set of terminals.
     // We know the exact name of the locations on the court, it doesn't change.
