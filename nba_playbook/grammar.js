@@ -40,11 +40,26 @@ module.exports = grammar({
     ))
     )),
     
+
+
+
+    // -------------------------------
+    // ------------ PLAY -------------
+    // -------------------------------
+    // 
+    // PLAY with On Ball {
+    //    On Ball shoot
+    // }
+    // 
+    // Allows you to create set plays, chaining actions together.
+    // 
     play: $ => (seq("PLAY", $.identifier, optional((seq("with", $.player_identifier, repeat((seq(",", $.player_identifier)
     )))
     )), $._action_holder)
     ),
     
+
+    // Returning whether a user has a ball
     returns: $ => (seq("BALL", $.player_identifier)
     ),
     
@@ -189,7 +204,13 @@ module.exports = grammar({
       seq($.player, "calls timeout")
       ,seq($.player_identifier, "calls timeout")
     ),
-    
+
+    // 
+    // Fixed locations, implemented as a set of terminals.
+    // We know the exact name of the locations on the court, it doesn't change.
+    // Abstraction used here within tree-sitter, all locations encapsulated under the location symbol
+    // but splits into a partition with the hidden types.
+    // 
     location: $ => choice(
       $._frontcourt
       ,$._backcourt
@@ -232,6 +253,10 @@ module.exports = grammar({
       "Low Post"
       ,"High Post"
     ),
+
+    // ---------------------------------
+    // ------------ PERSON -------------
+    // ---------------------------------
     
     player_def: $ => (seq("PERSON", $.player_name, "{", $.player_personals, optional($.player_attributes), "}")
     ),
@@ -253,17 +278,29 @@ module.exports = grammar({
     
     player_attributes: $ => (seq("ATTRIBUTES", repeat($.attribute_category))
     ),
-    
+
+    // 
+    // Allows you to define your own categories as opposed to preset.
+    // 
     attribute_category: $ => (seq(alias($.string_capitalised, $.identifier), "(", repeat1($.attribute), ")")
     ),
     
+    //
+    // Could be a percentage, or just a float value, integer or a boolean.
+    //
     attribute: $ => ((seq($.identifier, optional(":"), choice(
       $.float
+      ,$.num
       ,$.bool
     ), optional("%"))
     )
     ),
     
+
+    // ------------------------------------
+    // ------------ CALCULATE -------------
+    // ------------------------------------
+
     calculate: $ => (seq('CALCULATE', choice(
       alias($.string_capitalised, $.identifier)
       ,$.identifier
@@ -276,6 +313,9 @@ module.exports = grammar({
     ), ";", "}")
     ),
     
+    //
+    // Allows for +=, -=, /=, *=, =
+    //
     calculation_variable: $ => (seq($.identifier, optional(choice(
       "+"
       ,"-"
@@ -284,6 +324,9 @@ module.exports = grammar({
     )), "=", $.calculation_expression, ";")
     ),
     
+    //
+    // One line of calculations.
+    //
     calculation_expression: $ => choice(
       $._calculation_values
       ,$.calculation_bracket
@@ -296,6 +339,9 @@ module.exports = grammar({
     )
     ),
     
+    // 
+    // *, /, %, //, ** has higher precedence than + and -
+    //
     _calculate_higher_precedence: $ => prec.left(2,(seq($.calculation_expression, choice(
       "*"
       ,"/"
@@ -311,9 +357,15 @@ module.exports = grammar({
     ), $.calculation_expression)
     )),
     
+    //
+    // Brackets come first
+    //
     calculation_bracket: $ => prec(3,(seq("(", $.calculation_expression, ")")
     )),
     
+    //
+    // Values could be an attribute, float, number, or a previously defined variable.
+    //
     _calculation_values: $ => prec(3,(choice(
       $.attribute_access
       ,$.float
@@ -322,9 +374,16 @@ module.exports = grammar({
     )
     )),
     
+    //
+    // Allows access to the previously defined player attributes
+    //
     attribute_access: $ => prec(1,(seq($.player_identifier, ".", $.identifier)
     )),
     
+
+    // ---------------------------------
+    // ------------ EVAL -------------
+    // ---------------------------------
     evaluate: $ => (seq('EVAL', optional((seq("with", choice(
       $.player
       ,seq($.identifier, optional($.array_access))
@@ -344,6 +403,10 @@ module.exports = grammar({
       ,$._action_only
     ),
     
+    //
+    // Calling on the functions defined by PLAY
+    // Allows for nested functions mixed with player inputs, i.e function1(function2, function3, Player @)
+    //
     function_chain: $ => ((seq($.identifier, "(", optional((seq(choice(
       choice(
       $.player
@@ -359,6 +422,14 @@ module.exports = grammar({
     )
     ),
     
+
+    // ---------------------------------
+    // ------------ TEAM ---------------
+    // ---------------------------------
+
+    // 
+    // For defining a n-tuple of players.
+    //
     team: $ => (seq('TEAM', $.identifier, "(", $.team_holder, ")")
     ),
     
@@ -366,6 +437,11 @@ module.exports = grammar({
     )))
     ),
     
+
+
+    // ---------------------------------------
+    // ------------ CONDITIONALS -------------
+    // ---------------------------------------
     conditional: $ => (seq("IF", $.condition, "{", repeat(choice(
       $._action_only
       ,$.conditional
@@ -376,15 +452,25 @@ module.exports = grammar({
     )))
     ),
     
+    //
+    // Accounts for all boolean expressions
+    //
     condition: $ => choice(
       $.negate_condition
       ,$.sub_condition
       ,$.compare
     ),
     
+    //
+    // For negating a boolean
+    //
     negate_condition: $ => (seq("NOT", $.condition)
     ),
     
+
+    //
+    // Conjunctions and disjunctions
+    //
     sub_condition: $ => choice(
       seq("[", $.condition, repeat((seq("AND", $.condition)
     )), "]")
@@ -392,6 +478,9 @@ module.exports = grammar({
     )), "]")
     ),
     
+    //
+    // Comparisons, a <= b, a > b and so on
+    //
     compare: $ => (seq($._comparison_values, repeat((seq($.comparator, $._comparison_values)
     )))
     ),
@@ -403,6 +492,9 @@ module.exports = grammar({
     ), optional("="))
     ),
     
+    //
+    // Could be comparing values or checking locations
+    //
     _comparison_values: $ => (choice(
       $._calculation_values
       ,$.bool
@@ -410,12 +502,20 @@ module.exports = grammar({
     )
     ),
     
+
+    // -----------------------------------
+    // ------------ LOCATION -------------
+    // -----------------------------------
     player_location: $ => choice(
       seq($.player, "at", $.location)
       ,seq($.player_identifier, "at", $.location)
       ,seq($.identifier, optional($.array_access), "at", $.location)
     ),
     
+
+    // ---------------------------------
+    // ------------ SETUP -------------
+    // ---------------------------------
     setup: $ => (seq("SETUP", optional((seq("with", choice(
       $.player
       ,seq($.identifier, optional($.array_access))
@@ -427,21 +527,35 @@ module.exports = grammar({
     )), $.setup_holder)
     ),
     
+    //
+    // Identifying player locations
+    //
     setup_holder: $ => (seq("{", repeat($.player_location), $.ball_holder, "}")
     ),
     
+    //
+    // Identifying who has the ball
+    //
     ball_holder: $ => (seq("BALL", choice(
       $.player
       ,seq($.identifier, optional($.array_access))
     ))
     ),
     
+
+    // --------------------------------------
+    // ------------ PLAYER NAME -------------
+    // --------------------------------------
     player: $ => prec(4,(seq(optional($.opponent_identifier), $.name, '@')
     )),
     
     name: $ => (repeat1($._string_first_capitalised)
     ),
     
+
+    // --------------------------------------------
+    // ------------ PLAYER IDENTIFIER -------------
+    // --------------------------------------------
     player_identifier: $ => prec(6,(seq(optional($.opponent_identifier), choice(
       "Point Guard"
       ,"Shooting Guard"
@@ -460,6 +574,11 @@ module.exports = grammar({
     identifier: $ => (/[a-z_][a-zA-Z0-9_]*/
     ),
     
+    // ---------------------------------------
+    // ------------ ARRAY ACCESS -------------
+    // ---------------------------------------
+
+    // Allows for array slicing and array access, arr[0], arr[:1], arr[2:], arr[1:3]
     array_access: $ => (seq("[", choice(
       $.num
       ,(seq(optional((seq(optional("-"), $.num)
@@ -479,6 +598,10 @@ module.exports = grammar({
     string_capitalised: $ => (/[A-Z_][A-Z_]*/
     ),
     
+
+    // -------------------------------------------
+    // ------------ BASIC DATA TYPES -------------
+    // -------------------------------------------
     float: $ => (seq($._num, ".", $._num)
     ),
     
@@ -492,6 +615,10 @@ module.exports = grammar({
     
     num: $ => prec.right((/[0-9]+/
     )),
+
+    // ---------------------------------
+    // ------------ COMMENTS -------------
+    // ---------------------------------
 
 		// http://stackoverflow.com/questions/13014947/regex-to-match-a-c-style-multiline-comment/36328890#36328890
 		comment: (_$) =>

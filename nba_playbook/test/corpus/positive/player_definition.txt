@@ -300,3 +300,20 @@ ATTRIBUTES
 }
 
 ---
+
+(start
+	(player_def
+		(player_name
+			(player
+				(name)))
+		(player_personals
+			(float)
+			(float)
+			(float)
+			(num))
+        (player_attributes
+			(attribute_category
+				(identifier)
+				(attribute
+					(identifier)
+					(bool))))))

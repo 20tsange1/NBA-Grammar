@@ -4,7 +4,7 @@
 
 The language in question, designed for this assignment, is the NBA Calculator, a domain specific language catering towards NBA analysts seeking to calculate the probabilistic success of a certain move or set of plays. Concerning this coursework, it is assumed that a magical back-end exists to carry out certain functionality along with carrying out calculations. In this case, the language serves to create a model with which analysts can input player's attributes, declare plays, and evaluate such plays. Furthermore, the langauge is designed with flexibility in mind, allowing calculations for actions (such as shooting, passing, and more) to be overridden, providing comprehensive evaluation functionality, whereby the analyst can provide their own formulas and success rates. By creating a new language, there was much greater flexibility on construction, however, each individual component had to be deliberated upon and designed for seamless incorporation.
 
-## Motivation and Implementation
+## The Language
 
 In order to more closely examine the purpose and motivation of the language, a complete example will be provided along with an expected output. Given that the language is to be used by analysts, usability and readability were in focus when designing the language. A focus was placed on using keywords and structures that provide an illusion of plain english, such that it can be easily understood without prior training on the language. Furthermore, an interpreted-style language is a key inspiration, with the aim of allowing analysts to use building blocks which are processed from top to bottom, and are evaluated as is before moving to the next block.
 
@@ -114,13 +114,11 @@ PLAY dribble_play with On Ball, !Off Ball {
 }
 ```
 
-Additionally, Basketball is a game built up of different moves and actions chained together and executed sequentially. In order to enable that, the language provides the ability to declare plays, set moves whereby 1 or more actions (passing, shooting, driving) are listed sequentially – along with their respective types, e.g chest or bounce or lobs for passing. In a real life basketball game, these correlate to the moves that players can take and the different ways they are carried out. 
-
-In this case, a play takes the form of a function-like block, requiring the analyst to use identifiers for the players involved (arguments) and consequently use them within the play. It is assumed that the checking of the validity of the identifiers and their usage will be checked by the magical back-end. Plays can either return the respective player with the ball, or not return anything at all, signifying whether a play retains the ball or not – For example, when the ball is shot, the team will no longer have possession of the ball. This also allows us to then use plays within other plays, as it can evaluate to a player who is holding the ball.
+Additionally, Basketball is a game built up of different moves and actions chained together and executed sequentially. In order to enable that, the language provides the ability to declare plays, set moves whereby 1 or more actions (passing, shooting, driving) are listed sequentially – along with their respective types, e.g chest or bounce or lobs for passing. In this case, a play takes the form of a function-like block, requiring the analyst to use identifiers for the players involved (arguments) and consequently use them within the play. Plays can either return the respective player with the ball, or not return anything at all, signifying whether a play retains the ball or not – For example, when the ball is shot, the team will no longer have possession of the ball. This also allows us to then use plays within other plays, as it can evaluate to a player who is holding the ball.
 
 In order to more easily identify a chain of actions within the language and reduce the depth of the resultant AST, a flat structure has been created, leveraging the repeat1 function within tree-sitter to enable these actions to be laid out on a single equal level. During evaluation of the AST, it is then possible to know directly the number of and types of actions with just a shallow exploration of the AST. Additionally, actions do not require a symbol to end each line, a liberty taken in design, allowing analysts to not have to fret over trivial problems such as missing semi-colons. 
 
-The language also provides the ability to define conditions and prerequisites to an action, requiring these conditions to be true or excluding an action / providing an alternative action. This follows an IF {} OTHERWISE {} structure, where the otherwise segment is optional as not all conditionals require an alternative. It is also possible to nest conditionals, building up a greater depth of conditional expressions. Conditions can also be chained, allowing for more complex boolean expressions to be formed (Expressions using AND and OR). This is important towards analysts, as certain moves may have complex prerequisites that need to be fulfilled before it can be carried out, or in some cases there may be a better alternative, e.g if a player has a low pass rating, it may be more effective for them to dribble the ball to a specific location.
+The language also provides the ability to define conditions and prerequisites to an action, requiring these conditions to be true or excluding an action / providing an alternative action. This follows an `IF {} OTHERWISE {}` structure, where the otherwise segment is optional as not all conditionals require an alternative. It is also possible to nest conditionals, building up a greater depth of conditional expressions. Conditions can also be chained, allowing for more complex boolean expressions to be formed (Expressions using AND and OR). This is important towards analysts, as certain moves may have complex prerequisites that need to be fulfilled before it can be carried out, or in some cases there may be a better alternative, e.g if a player has a low pass rating, it may be more effective for them to dribble the ball to a specific location.
 
 ```
 IF NOT [[a AND b] OR NOT [c AND d] OR [c OR a]] {
@@ -139,7 +137,7 @@ Conditions would not be complete if it were not encapsulative of all the differe
 // Pass Calculation
 CALCULATE PASS with On Ball, Off Ball {
 	on_ball = On Ball.passing * 0.87;
-	receiver = Off Ball.ball_handling * 0.85;
+	receiver = Off Ball.ball_handling * (0.85 * 1.0);
 	RETURN on_ball * receiver;
 }
 
@@ -149,10 +147,9 @@ CALCULATE SHOOT with On Ball {
 }
 ```
 
-Moving to the probabilistic calculations that the language enables, it first begins with the definition of the probability of success of each move. While it is assumed that a default probability is provided, this language enables the analyst to define their own success probabilities, allowing analysts to implement unique and innovative analytical solutions. 
+Analysts love their numbers and calculations, exploiting them for an edge in probablistic predictions. As such, the language is designed to enable this numerical self expression, allowing analysts to define the probability of success regarding each move and play. While it is assumed that a default probability is provided, this language enables analysts to implement unique and innovative analytical solutions, giving them free reign to form their desired mathematical equations.
 
-
-In this case, it is possible to express all equations using the symbols (+ for addition, - for Subtraction, * for multiplication, / for division, % for modulus, // for floor division, ** for power). This calculation then returns a float value <= 1.0 (To be checked by magical backend) - limited by the maximum probability of success (1.0).
+In this case, it is possible to form any mathematical equation using the symbols `(+ for addition, - for Subtraction, * for multiplication, / for division, % for modulus, // for floor division, ** for power)`, with a lower precedence for addition and subtraction as according to the mathematical order of operations. Furthermore, the inclusion of bracketing allows for analysts to define their own precedence of operations, ensuring that all their mathematical explorations can be expressed. Additionally, the inclusion of variables, defined by an identifier followed with some form of equals `(=, or +=, -=, /=, *=)`, allows analysts to temporarily store results and be more deliberate in forming equations – along with increasing the readability of their equations.
 
 ```
 // Overriding Play Calculation
@@ -161,7 +158,7 @@ CALCULATE pass_pass {
 }
 ```
 
-Furthermore, some plays that are practiced more or signature moves may have a higher probability of success as opposed to if it was calculated using each individual action. In this case, the probability of the play can be overriden and provided directly by the analyst, or calculated using the same expressions allowed previously.
+Furthermore, some plays that are practiced more or signature moves may have a higher probability of success as opposed to if it was calculated using each individual action. In this case, the probability of the play can be overriden and provided directly by the analyst (as a float value), or calculated using the same expressions allowed previously. It can also be noted that for ease of extracting the identifier of a block, the identifier token exists as the first child wherever it appears, allowing this identifier to be used before exploring the rest of the AST of that block, making it easier to access for type-checking and similar purposes.
 
 ### Court Positioning Setup
 
@@ -175,7 +172,20 @@ SETUP with la_lakers {
 }
 ```
 
-Consequently, before any evaluation of a play, it is the case that the ball carrier must be identified, such that it can be used in a corresponding play correctly (checked by the magical back-end). Furthermore, as conditions may pertain to a player's position, this can also be declared at this stage. This information is then stored by the back-end to be used when plays are called.
+Consequently, before any evaluation of a play, it is the case that the ball carrier must be identified, such that it can be used in a corresponding play correctly (checked by the magical back-end). Furthermore, as conditions may pertain to a player's position, this can also be declared at this stage. This information is then to be stored by the back-end to be used when plays are called. 
+
+Whenever the use of TEAM identifiers is concerned, it is also possible to use array access syntax (including array slicing), in order to identify specific players within a team. This feature enables analysts to identify and use subsets of predefined teams, or specific players within a team without requiring them to rewrite the players names in full again. This streamlines the writing process for analysts, allowing them to also change the players evaluated at a team level if required (i.e swapping players out) without having to touch the evaluations / setups themselves.
+
+This is done via:
+
+```
+identifier[:IND_END]
+identifier[IND_START:]
+identifier[IND_START:IND_END]
+identifier[IND]
+```
+
+where IND, IND_START, IND_END are the array indexes.
 
 ### Play Evaluation
 
@@ -189,8 +199,7 @@ EVAL with Lebron James @, la_lakers {
 }
 ```
 
-Lastly and most importantly, sequences of plays can be evaluated with players as inputs. This allows for the players to be evaluated within the plays and used within the calculations, to return the probability of success. A key feature here is the sequencing of plays, the use of players or identifiers as arguments, and the use of plays within plays. Some plays return the player with the ball, and this can then be used in the play that it is nested within. The evaluation ties up the language altogether, bringing forth its purpose of success calculation and providing the functionality that it is designed for.
-
+Lastly and most importantly, analysts must be able to evaluate the plays they have setup, passing players as inputs into sequences of plays to calculate the success rate of the combination. A key feature here is the sequencing of plays, the use of players or identifiers as arguments, and the use of plays within plays. Some plays return the player with the ball, and this can then be used in the play that it is nested within, allowing analysts to more succinctly chain plays together. The evaluation block ties up the language altogether, bringing forth its purpose of success calculation and providing the functionality that it is designed for.
 
 ### Output Process (Example)
 
@@ -232,8 +241,6 @@ result = pass_pass * pass_shoot
 ```
 
 Resultantly, analysts are provided with a success probability which can help them analyse their moves against an opposing team and decide on the most optimal plays for the team to make. Although tailored in this case to NBA analysts, moves can be easily altered within the language to support a wider range of sports. Altogether, the language allows analysts to define players, define plays, express calculations, and evaluate a game-like scenario for it's chance of success.
-
-## Instruction Manual
 
 ## E-BNF
 ```

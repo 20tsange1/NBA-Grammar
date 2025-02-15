@@ -117,6 +117,7 @@ Calculation Return with Player ID and Variable calculation
 
 CALCULATE SHOOT with Point Guard {
 	point_guard = Point Guard.shooting * 0.37;
+	point_guard += 0.0;
 	RETURN 0.0;
 }
 
@@ -136,6 +137,10 @@ CALCULATE SHOOT with Point Guard {
 							(identifier)))
 					(calculation_expression
 						(float))))
+			(calculation_variable
+				(identifier)
+				(calculation_expression
+					(float)))
 			(calculation_expression
 				(float)))))
 
