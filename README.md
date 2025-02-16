@@ -6,7 +6,7 @@ The language in question, designed for this assignment, is the NBA Calculator, a
 
 ## The Language
 
-In order to more closely examine the purpose and motivation of the language, a complete example will be provided along with an expected output. Given that the language is to be used by analysts, usability and readability were in focus when designing the language. A focus was placed on using keywords and structures that provide an illusion of plain english, such that it can be easily understood without prior training on the language. Furthermore, an interpreted-style language is a key inspiration, with the aim of allowing analysts to use building blocks which are processed from top to bottom, and are evaluated as is before moving to the next block – perfect for a jupyter notebook interface.
+Given that the language is to be used by analysts, usability and readability were in focus when designing the language, particularly on using keywords and structures that provide an illusion of plain english, such that it can be easily understood without prior training. Furthermore, the language follows an interpreted-style language, with the aim of allowing analysts to use building blocks which are processed from top to bottom, and are evaluated as is before moving to the next block – perfect for a Jupyter notebooks.
 
 The building blocks in question are:
 
@@ -25,7 +25,7 @@ The building blocks in question are:
 **EVAL**
 : For evaluating a set of plays or actions, providing analysts with a statistical probability of success.
 
-Each building block begins with a capitalised identifier, allowing it to be easily identified as one such building block along with the use of curly-brackets ({}) to denote and enclose the contents of the block. These building blocks are expected to be pieced together, building up a simulation of a basketball court and the set of actions that take place during a game. Analysts can add players as they see fit, define teams wherever necessary, define plays which are relevant, and then evaluate these plays for its success rate. The simplicity of using building blocks (especially with a purposely low number of them), allows the language to be easily managed, as it is instantly clear what each block pertains to.
+Each building block begins with a capitalised identifier, allowing it to be easily identified as one such building block along with the use of curly-brackets ({}) to denote and enclose the contents of the block. These building blocks are expected to be pieced together, building up a simulation of a basketball court and the set of actions that take place during a game. Analysts can add players as they see fit, define teams wherever necessary, define plays which are relevant, and then evaluate these plays for its success rate. The simplicity of using building blocks (especially with a purposely low number of them), allows the language to be easily managed, as each identifier makes clear what each block pertains to.
 
 ### Player Declaration
 ```
@@ -58,7 +58,7 @@ PERSON Lebron James @ {
 }
 ```
 
-As with the building blocks, this player block initially begins with the "PERSON" keyword, followed by the player name. The proceeding player information is then contained within a predefined format, whilst attributes are extendable and defined by the analyst. As the field of analytics is continously in flux, new attributes or characteristics may be added, requiring this extendability. These attributes can take the form of a float, boolean or number (Although type checking will be handled by the back-end), and is designed to be referenced in other parts of the language (via `Player Identifier.attribute`), allowing analysts to use it within calculations. This implementation follows a json-like structure due to its readability, nesting the attributes under subsections which in turn can be used as a categorisation token.
+The player block initially begins with the "PERSON" keyword, followed by the player name. The proceeding player information is then contained within a predefined format, whilst attributes are extendable and defined by the analyst. As the field of analytics is continously in flux, new attributes or characteristics may be added, requiring this extendability. These attributes can take the form of a float, boolean or number (Although type checking will be handled by the back-end), and is designed to be referenced in other parts of the language (via `Player Identifier.attribute`), allowing analysts to use it within calculations. This implementation follows a json-like structure due to its readability and familiarity, nesting the attributes under subsections which in turn can be used as a categorisation token.
 
 ### Team Declaration
 
@@ -68,7 +68,7 @@ TEAM la_lakers (Lebron James @, Luka Doncic @, Austin Reaves @)
 TEAM la_bucks_matchup (Lebron James @, ! Giannis Antetokounmpo @)
 ```
 
-As it is tedious to continously rewrite the names of players over and over again, team declarations are provided, allowing you to predefine tuples containing the players – this enables it for use within other blocks such as the evaluation block. It is assumed that the magical backend will handle checking for unique identifiers, along with ensuring that players included have been defined. An exclamation mark (!) is used to denote an opposing player. This provides the analysts with the ability to include the stats and attributes of opponents into their calculations. Within the language itself, this will show up as a named node, allowing easy classification of the player as an opponent by checking for the appearance of this node.
+As it is tedious to continously rewrite the names of players over and over again, team declarations are provided, allowing you to predefine tuples containing the players – this enables it for use within other blocks such as the evaluation block. It is assumed that the magical backend will handle checking for unique identifiers, along with ensuring that players included have been defined. For simplicity, an exclamation mark (!) is used to denote an opposing player. This provides the analysts with the ability to include the stats and attributes of opponents into their calculations. Within the language itself, this will show up as a named node, allowing easy classification of the player as an opponent by checking for the appearance of this node.
 
 When designing the grammar, it was noticed that allowing flexibility in identifier names, block names, and player names led to the parser incorrectly tokenising the different names even when a right or left precedence was set. As such, to more clearly denote each name type, each name type was designed to avoid conflicts:
 
@@ -84,7 +84,7 @@ When designing the grammar, it was noticed that allowing flexibility in identifi
 **Player Identifier & Locations**
 : Fixed set of position identifiers, (Point Guard, Shooting Guard, On Ball ...) and location identifiers (Top of Key, Elbow Left, Left Wing ...)
 
-None of these types can have the same prefix after the first letter, allowing it to be parsed more easily whilst still allowing for flexibility in the naming conventions. Particularly in the case of the player names, it is also immediately obvious to the analysts what a name/identifier is being used for. A less flexible, team specific DSL may require hard-coding of the players names, however, as this language is made to develop extensible analysis programs, new player names may need to be added at any times, which is why flexibility is required.
+None of these types can have the same prefix after the first letter, allowing it to be parsed more easily whilst still allowing for flexibility in the naming conventions. Particularly in the case of the player names, it is also immediately obvious to the analysts what a name/identifier is being used for. 
 
 
 ### Play Declaration
@@ -127,9 +127,7 @@ IF NOT [[a AND b] OR NOT [c AND d] OR [c OR a]] {
 }
 ```
 
-In order to prevent the incorrect evaluation of conditionals, it is designed that any condition within the same set of square brackets ([]) must be either conjunctions (AND) or disjunctions (OR), not both. This allows for better enforcement of the two, making evaluation of a conditional more straightforward, preventing ambiguity via the language design and requiring analysts to explicity enforce precedence.
-
-Conditions would not be complete if it were not encapsulative of all the different types of numerical and boolean comparisons (e.g >=, ==), and as such, each one has been included, constructing a comprehensive comparison suite. Analysts may also want to negate conditions in cases where a condition should not be true, and this is enabled through the use of the NOT keyword in front of a condition. As a bonus, both "=" and "==" are enabled and can be used interchangeably depending on analyst preference. 
+In order to prevent the incorrect evaluation of conditionals, it is designed that any condition within the same set of square brackets ([]) must be either conjunctions (AND) or disjunctions (OR), but not both. This allows for better enforcement of the two, making evaluation of a conditional more straightforward, preventing ambiguity via the language design and requiring analysts to explicity enforce precedence. Analysts would be irritated if conditions were not encapsulative of all the different types of numerical and boolean comparisons (e.g >=, ==), along with negations (NOT), and as such, each one has been included, constructing a comprehensive comparison suite. As a bonus, both "=" and "==" are enabled and can be used interchangeably depending on analyst preference.
 
 ### Calculation Expressions
 
@@ -147,9 +145,9 @@ CALCULATE SHOOT with On Ball {
 }
 ```
 
-Analysts love their numbers and calculations, exploiting them for an edge in probablistic predictions. As such, the language is designed to enable this numerical self expression, allowing analysts to define the probability of success regarding each move and play. While it is assumed that a default probability is provided, this language enables analysts to implement unique and innovative analytical solutions, giving them free reign to form their desired mathematical equations.
+Analysts also love their numbers and calculations, exploiting them for an edge in probabilistic predictions. As such, the language is designed to enable this numerical self expression, allowing analysts to define the probability of success regarding each move and play. While it is assumed that a default probability is provided, this language enables analysts to implement unique and innovative analytical solutions, giving them free reign to form their desired mathematical equations.
 
-In this case, it is possible to form any mathematical equation using the symbols `(+ for addition, - for Subtraction, * for multiplication, / for division, % for modulus, // for floor division, ** for power)`, with a lower precedence for addition and subtraction as according to the mathematical order of operations. Furthermore, the inclusion of bracketing allows for analysts to define their own precedence of operations, ensuring that all their mathematical explorations can be expressed. Additionally, the inclusion of variables, defined by an identifier followed with some form of equals `(=, or +=, -=, /=, *=)`, allows analysts to temporarily store results and be more deliberate in forming equations – along with increasing the readability of their equations.
+In this case, it is possible to form any mathematical equation using the symbols `(+ for addition, - for Subtraction, * for multiplication, / for division, % for modulus, // for floor division, ** for power)`, with a lower precedence for addition and subtraction as according to the mathematical order of operations. Furthermore, the inclusion of bracketing allows for analysts to define their own precedence of operations, ensuring that all their mathematical explorations can be expressed. Additionally, the inclusion of variables, defined by an identifier followed with some form of equals operator with added functionality `(=, or +=, -=, /=, *=)`, allows analysts to temporarily store results and be more deliberate in forming equations – along with increasing the readability of their equations.
 
 ```
 // Overriding Play Calculation
@@ -158,7 +156,7 @@ CALCULATE pass_pass {
 }
 ```
 
-Furthermore, some plays that are practiced more or signature moves may have a higher probability of success as opposed to if it was calculated using each individual action. In this case, the probability of the play can be overriden and provided directly by the analyst (as a float value), or calculated using the same expressions allowed previously. It can also be noted that for ease of extracting the identifier of a block, the identifier token exists as the first child wherever it appears, allowing this identifier to be used before exploring the rest of the AST of that block, making it easier to access for type-checking and similar purposes.
+Furthermore, some plays that are practiced more or signature moves may have a higher probability of success as opposed to if it was calculated using each individual action. In this case, the probability of the play can be overridden and provided directly by the analyst (as a float value), or calculated using the same expressions allowed previously. It can also be noted that for ease of extracting the identifier of a block, the identifier token exists as the first child wherever it appears, allowing this identifier to be used before exploring the rest of the AST of that block, making it easier to access for type-checking and similar purposes.
 
 ### Court Positioning Setup
 
@@ -199,7 +197,7 @@ EVAL with Lebron James @, la_lakers {
 }
 ```
 
-Lastly and most importantly, analysts must be able to evaluate the plays they have setup, passing players as inputs into sequences of plays to calculate the success rate of the combination. A key feature here is the sequencing of plays, the use of players or identifiers as arguments, and the use of plays within plays. Some plays return the player with the ball, and this can then be used in the play that it is nested within, allowing analysts to more succinctly chain plays together. The evaluation block ties up the language altogether, bringing forth its purpose of success calculation and providing the functionality that it is designed for.
+Lastly and most importantly, analysts must be able to evaluate the plays they have setup, passing players as inputs into sequences of plays to calculate the success rate of the combination. A key feature here is the sequencing of plays, the use of players or identifiers as arguments, and the use of plays within plays. Some plays return the player with the ball, and this can then be used in the play that it is nested within, allowing analysts to more succinctly chain plays together. The block provides flexibility in the expressions of plays and actions, allowing analysts to evaluate a breadth of game relevant scenarios, and through its functionality, ties up the language altogether, bringing forth its purpose of probabilistic success prediction.
 
 ### Output Process (Example)
 
@@ -240,7 +238,7 @@ pass_shoot = pass * shoot = ((0.87 * 0.78) * ((Austin Reaves @).ball_handling * 
 result = pass_pass * pass_shoot
 ```
 
-Resultantly, analysts are provided with a success probability which can help them analyse their moves against an opposing team and decide on the most optimal plays for the team to make. Although tailored in this case to NBA analysts, moves can be easily altered within the language to support a wider range of sports. Altogether, the language allows analysts to define players, define plays, express calculations, and evaluate a game-like scenario for it's chance of success.
+Resultantly, analysts are provided with a success probability which can help them analyse their moves against an opposing team and decide on the most optimal plays for the team to make. Although tailored in this case to NBA analysts, moves can be easily altered within the language to support a wider range of sports. Altogether, the language allows analysts to define players, define plays, express calculations, and evaluate a game-like scenario for it's chance of success, fulfilling an analysts dream.
 
 ## E-BNF
 ```
