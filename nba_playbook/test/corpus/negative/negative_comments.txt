@@ -1,0 +1,39 @@
+====================
+Negative - Single line comment - One Slash
+====================
+
+/ NBA language
+
+---
+
+(start
+    (ERROR
+        (identifier)
+        (UNEXPECTED 'n')))
+
+====================
+Negative - Block comment - Open
+====================
+
+/ NBA language */
+
+---
+
+(start
+    (ERROR
+        (identifier)
+        (UNEXPECTED 'n')))
+
+
+====================
+Negative - Block comment - Close
+====================
+
+/* NBA language /
+
+---
+
+(start
+    (ERROR
+        (identifier)
+        (UNEXPECTED 'n')))

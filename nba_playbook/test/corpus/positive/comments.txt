@@ -1,5 +1,29 @@
 ====================
-Single line comments
+Single line comment
+====================
+
+// NBA language
+
+---
+
+(start 
+  (comment))
+
+
+====================
+Single line comment extra slash
+====================
+
+/// NBA language
+
+---
+
+(start 
+  (comment))
+
+
+====================
+Single line multiple comments
 ====================
 
 // NBA language

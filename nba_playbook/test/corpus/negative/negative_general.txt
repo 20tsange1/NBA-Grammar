@@ -1,0 +1,142 @@
+================
+Negative - Incorrect Block Trigger Word
+=================
+
+SETU {
+    BALL Luka Doncic @
+}
+
+---
+
+(start
+    (ERROR
+        (player
+            (name)
+            (ERROR
+                (identifier)
+                (UNEXPECTED 'u')
+                (identifier)
+                (UNEXPECTED 'i')))))
+
+
+=================
+Negative - Incorrect Return Word
+=================
+
+SETUP {
+    DISK Luka Doncic @
+}
+
+---
+
+(start
+    (ERROR
+        (player
+            (name))))
+
+=================
+Negative - With missing commas
+=================
+
+PLAY basic_play_1 with Point Guard Small Forward {
+	Point Guard pass (lob) to Small Forward
+}
+
+---
+
+(start
+	(playbook
+		(play
+			(identifier)
+			(ERROR
+				(player_identifier))
+			(player_identifier)
+			(offensive_action
+				(pass
+					(player_identifier)
+					(pass_type)
+					(player_identifier))))))
+
+
+=================
+Negativ - Wrong Location
+=================
+
+IF Point Guard at Top of Edge {
+}
+
+---
+
+(start
+    (ERROR
+        (player_identifier)
+        (identifier)
+        (UNEXPECTED 'p')
+        (identifier)
+        (UNEXPECTED 'g')))
+
+
+=================
+Negative - Incorrect Identifier Element Access
+=================
+
+SETUP with la_lakers {
+    BALL la_lakers[--0]
+}
+
+---
+
+(start
+    (setup
+        (identifier)
+        (setup_holder
+            (ball_holder
+                (identifier)
+                (array_access
+                    (ERROR)
+                    (num))))))
+
+=================
+Negative - Incorrect Identifier Array Slice
+=================
+
+SETUP with la_lakers[0:end] {
+    BALL la_lakers[0]
+}
+
+---
+
+(start
+      (setup
+        (identifier)
+        (array_access
+            (num)
+            (ERROR
+                (UNEXPECTED 'e')))
+        (setup_holder
+            (ball_holder
+                (identifier)
+                    (array_access
+                        (num))))))
+
+=================
+Negative - Identifier Array Positive Slice
+=================
+
+SETUP with la_lakers[+1:] {
+    BALL la_lakers[1]
+}
+
+---
+
+(start
+    (setup
+        (identifier)
+        (array_access
+            (ERROR)
+            (num))
+        (setup_holder
+            (ball_holder
+                (identifier)
+                (array_access
+                    (num))))))

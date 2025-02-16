@@ -1,0 +1,245 @@
+=================
+Negative - Condition - Incorrect Condition
+=================
+
+IF Tralse {
+}
+
+---
+
+(start
+	(ERROR))
+
+=================
+Negative - Condition - Incorrect Negation Boolean
+=================
+
+IF NO true {
+}
+
+---
+
+(start
+	(conditional
+			(ERROR)
+			(condition
+				(compare
+					(bool)))))
+
+=================
+Negative - Condition - Bracket Open Boolean
+=================
+
+IF true] {
+}
+
+---
+
+(start
+	(conditional
+        (condition
+			(compare
+				(bool)))
+	(ERROR)))
+
+=================
+Negative - Condition - Bracket Close Boolean
+=================
+
+IF [true {
+}
+
+---
+
+(start
+	(conditional
+        (condition
+			(sub_condition
+				(condition
+					(compare
+						(bool)))
+					(MISSING "]")))))
+
+
+=================
+Negative - Condition - Bracket Incorrect Connective
+=================
+
+IF [true XOR true] {
+}
+
+---
+
+(start
+	(conditional
+		(condition
+			(sub_condition
+				(condition
+					(compare
+						(bool)))
+				(ERROR
+					(identifier))))))
+
+=================
+Negative - Condition - Inner Nested Bracket Close
+=================
+
+IF [[true AND true OR [true]] {
+}
+
+---
+
+(start
+	(conditional
+		(condition
+			(sub_condition
+				(condition
+					(sub_condition
+						(condition
+							(compare
+								(bool)))
+						(condition
+							(compare
+								(bool)))
+						(MISSING "]")))
+				(condition
+					(sub_condition
+						(condition
+							(compare
+								(bool)))))))))
+
+
+=================
+Negative - Condition - Inner Nested Bracket Open
+=================
+
+IF [[true AND true] OR true]] {
+}
+
+---
+
+(start
+	(conditional
+		(condition
+			(sub_condition
+				(condition
+					(sub_condition
+						(condition
+							(compare
+								(bool)))
+						(condition
+							(compare
+								(bool)))))
+				(condition
+					(compare
+						(bool)))))
+		(ERROR)))
+
+
+=================
+Negative - Condition - Mixing Conjunction Disjunction
+=================
+
+IF [true AND true OR true] {
+}
+
+---
+
+(start
+	(conditional
+        (condition
+			(sub_condition
+				(condition
+					(compare
+						(bool)))
+				(condition
+					(compare
+						(bool)))
+	(ERROR)))))
+
+=================
+Negative - Condition - If Else
+=================
+
+IF true {
+}
+ELSE
+{
+}
+
+---
+
+(start
+	(conditional
+		(condition
+			(compare
+				(bool))))
+	(ERROR))
+
+=================
+Negative - Condition - Incorrect Comparison
+=================
+
+IF 0.5 != 0.7 {
+}
+
+---
+
+(start
+	(conditional
+		(condition
+			(compare
+				(float)
+				(ERROR
+					(opponent_identifier))
+				(comparator)
+				(float)))))
+
+=================
+Negative - Condition - Missing Comparison
+=================
+
+IF 0.5 0.7 {
+}
+
+---
+
+(start
+	(conditional
+		(condition
+			(compare
+				(float)))
+		(ERROR)))
+
+=================
+Negative - Condition - Name
+=================
+
+IF Luca Doncic @ {
+}
+
+---
+
+(start
+	(ERROR
+        (player
+			(name))))
+
+
+=================
+Negative - Condition - Player Location
+=================
+
+IF Point Guard NOT at Top of Key {
+}
+
+---
+
+(start
+    (conditional
+        (condition
+            (compare
+                (player_location
+                    (player_identifier)
+					(ERROR)
+                    (location))))))

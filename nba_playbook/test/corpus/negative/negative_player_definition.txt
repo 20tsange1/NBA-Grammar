@@ -1,0 +1,207 @@
+=================
+Negative - Person - Name Missing @
+=================
+
+PERSON Lebron James {
+
+INFORMATION
+	Height: 2.06m
+	Weight: 113.0kg
+	Wingspan: 2.14m
+	Age: 40years
+
+ATTRIBUTES
+}
+
+---
+
+(start
+	(player_def
+		(player_name
+			(player
+				(name)
+				(MISSING "@")))
+		(player_personals
+			(float)
+			(float)
+			(float)
+			(num))
+		(player_attributes)))
+
+=================
+Negative - Person - Incorrect Units
+=================
+
+PERSON Lebron James @ {
+
+INFORMATION
+	Height: 2.06kg
+	Weight: 113.0kg
+	Wingspan: 2.14m
+	Age: 40years
+
+ATTRIBUTES
+}
+
+---
+
+(start
+	(player_def
+		(player_name
+			(player
+				(name)))
+		(player_personals
+			(float)
+			(ERROR)
+			(float)
+			(float)
+			(num))
+		(player_attributes)))
+
+=================
+Negative - Person - Incorrect Characteristics
+=================
+
+PERSON Lebron James @ {
+
+INFORMATION
+	Braveness: 2.06
+	Weight: 113.0
+	Wingspan: 2.14
+	Age: 40
+
+ATTRIBUTES
+}
+
+---
+
+(start
+	(ERROR
+        (player_name
+			(player
+				(name)))
+			(identifier)
+	(UNEXPECTED 'r')))
+
+
+=================
+Negative - Person - Attribute Incorrect Ending
+=================
+
+PERSON Lebron James @ {
+
+INFORMATION
+	Height: 2.06m
+	Weight: 113.0kg
+	Wingspan: 2.14m
+	Age: 40years
+
+ATTRIBUTES
+	HANDLING
+	(
+		ball_handling: 0.95.
+	)
+}
+
+---
+
+(start
+	(player_def
+		(player_name
+			(player
+				(name)))
+		(player_personals
+			(float)
+			(float)
+			(float)
+			(num))
+		(player_attributes
+			(attribute_category
+				(identifier)
+				(attribute
+					(identifier)
+					(float))
+					(ERROR)))))
+
+=================
+Negative - Person - Attribute Category Uncapitalised
+=================
+
+PERSON Lebron James @ {
+
+INFORMATION
+	Height: 2.06m
+	Weight: 113.0kg
+	Wingspan: 2.14m
+	Age: 40years
+
+ATTRIBUTES
+	HANDLe
+	(
+		ball_handling: 0.95
+	)
+}
+
+---
+
+(start
+	(player_def
+		(player_name
+			(player
+				(name)))
+		(player_personals
+			(float)
+			(float)
+			(float)
+			(num))
+		(player_attributes
+			(attribute_category
+				(identifier)
+				(ERROR
+					(UNEXPECTED 'e'))
+				(attribute
+					(identifier)
+					(float))))))
+
+=================
+Negative - Person - Missing Bracket Attribute
+=================
+
+PERSON Lebron James @ {
+
+INFORMATION
+	Height: 2.06m
+	Weight: 113.0kg
+	Wingspan: 2.14m
+	Age: 40years
+
+ATTRIBUTES
+	HANDLING
+	(
+		ball_handling: 0.95%
+		passing: 0.85%
+	
+}
+
+---
+
+(start
+	(player_def
+		(player_name
+			(player
+				(name)))
+		(player_personals
+			(float)
+			(float)
+			(float)
+			(num))
+		(player_attributes
+			(attribute_category
+				(identifier)
+				(attribute
+					(identifier)
+					(float))
+				(attribute
+					(identifier)
+					(float))
+					(MISSING ")")))))

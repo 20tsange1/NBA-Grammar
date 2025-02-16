@@ -1,0 +1,118 @@
+=================
+Negative - Evaluation - Function Opening Bracket
+=================
+
+EVAL {
+	pass_shoot)
+}
+
+---
+
+(start
+	(evaluate
+		(evaluation_holder
+			(ERROR
+				(identifier)))))
+
+=================
+Negative - Evaluation - Function Closing Bracket
+=================
+
+EVAL {
+	(pass_shoot
+}
+
+---
+
+(start
+	(evaluate
+		(evaluation_holder
+			(ERROR
+				(identifier)))))
+
+
+=================
+Negative - Evaluation - Action Incorrect Player Name
+=================
+
+EVAL {
+	brother shoot
+}
+
+---
+
+(start
+	(evaluate
+		(evaluation_holder
+			(ERROR
+				(identifier)))))
+
+=================
+Negative - Evaluation - Play Incorrect Player Name
+=================
+
+EVAL with Lebron James @{
+	pass_shoot(Lebron James)
+}
+
+---
+
+(start
+	(evaluate
+		(player
+			(name))
+		(evaluation_holder
+			(evaluation_function
+				(function_chain
+					(identifier)
+					(ERROR))))))
+
+=================
+Negative - Evaluation - Nested Play and Player No Comma
+=================
+
+EVAL {
+	pass_shoot(Luka Doncic @ pass_pass())
+}
+
+---
+
+(start
+	(evaluate
+		(evaluation_holder
+			(evaluation_function
+				(function_chain
+					(identifier)
+					(player
+						(name))
+					(ERROR
+						(identifier))))
+			(ERROR))))
+
+
+=================
+Negative - Evaluation - Multiple Action with SemiColon
+=================
+
+EVAL {
+	Luka Doncic @ pass to Luka Doncic @;
+	Luka Doncic @ shoot
+}
+
+---
+
+(start
+	(evaluate
+		(evaluation_holder
+			(evaluation_function
+				(offensive_action
+					(pass
+						(player
+							(name))
+						(player
+							(name)))))
+			(ERROR
+            (identifier)
+            (UNEXPECTED 'u')
+            (identifier)
+            (UNEXPECTED 'i')))))

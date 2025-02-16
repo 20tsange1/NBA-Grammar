@@ -1,0 +1,120 @@
+=================
+Negative - Calculation - Player as Identifier
+=================
+
+CALCULATE Player @ {
+	RETURN 0.0;
+}
+
+---
+
+(start
+	(calculate
+        (identifier)
+		(ERROR
+			(UNEXPECTED 'e'))
+		(calculation_holder
+			(calculation_expression
+				(float)))))
+
+=================
+Negative - Calculation - Missing Semicolon
+=================
+
+CALCULATE PASS {
+	RETURN predefined
+}
+
+---
+
+(start
+	(ERROR
+        (identifier)
+		(calculation_expression
+			(identifier))))
+
+=================
+Negative - Calculation - Return Player
+=================
+
+CALCULATE PASS {
+	RETURN Player @;
+}
+
+---
+
+(start
+	(ERROR
+        (identifier)
+        (identifier)
+        (UNEXPECTED 'e')))
+
+=================
+Negative - Calculation - Incorrect Symbol
+=================
+
+CALCULATE SHOOT{
+	point_guard ^= Point Guard.shooting;
+	RETURN 0.0;
+}
+
+---
+
+(start
+	(calculate
+		(identifier)
+		(calculation_holder
+			(calculation_variable
+				(identifier)
+				(ERROR
+					(UNEXPECTED '^'))
+				(calculation_expression
+					(attribute_access
+						(player_identifier)
+						(identifier))))
+			(calculation_expression
+				(float)))))
+
+=================
+Negative - Calculation - Incorrect Operator
+=================
+
+CALCULATE SHOOT {
+	point_guard = 1.0 ^ 0.37;
+	RETURN 0.0;
+}
+
+---
+
+(start
+	(calculate
+        (identifier)
+        (calculation_holder
+			(calculation_variable
+				(identifier)
+				(ERROR
+					(calculation_expression
+						(float))
+					(UNEXPECTED '^'))
+				(calculation_expression
+					(float)))
+			(calculation_expression
+				(float)))))
+
+=================
+Negative - Calculation - Override Function
+=================
+
+CALCULATE pass_pass() {
+    RETURN 1.0;
+}
+
+---
+
+(start
+	(calculate
+		(identifier)
+		(ERROR)
+		(calculation_holder
+			(calculation_expression
+				(float)))))

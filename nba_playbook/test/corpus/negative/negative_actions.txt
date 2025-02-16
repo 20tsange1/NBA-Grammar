@@ -1,0 +1,143 @@
+=================
+Negative - Action - Brick Shot
+=================
+
+Small Forward brick shot
+
+---
+
+(start
+	(ERROR
+		(player_identifier)
+		(UNEXPECTED 'r')))
+
+=================
+Negative - Action - Incorrect Player Identifier
+=================
+
+Small Big shoot
+
+---
+
+(start
+	(offensive_action
+        (shoot
+			(player
+				(name)
+	(MISSING "@")))))
+
+=================
+Negative - Action - Incorrect Opponent Sign
+=================
+
+Small Forward block shot by - Ball Handler
+
+---
+
+(start
+    (defensive_action
+        (block
+            (player_identifier)
+			(ERROR)
+            (player_identifier))))
+
+
+=================
+Negative - Action - Incorrect Opponent Name
+=================
+
+Jaren Jackson Jr @ block shot by ! Luka Doncic
+
+---
+
+(start
+	(defensive_action
+		(block
+			(player
+				(name))
+			(player
+				(opponent_identifier)
+				(name)
+				(MISSING "@")))))
+
+
+=================
+Negative - Action - Shoot Wrong Type
+=================
+
+Small Forward shoot (inout)
+
+---
+
+(start
+	(offensive_action
+        (shoot
+			(player_identifier)))
+	(ERROR
+        (UNEXPECTED 'o')))
+
+=================
+Negative - Action - Pass Wrong Type
+=================
+
+Small Forward pass (lobcity) to Center
+
+---
+
+(start
+	(offensive_action
+		(pass
+			(player_identifier)
+			(pass_type
+				(ERROR
+					(UNEXPECTED 'i')))
+			(player_identifier))))
+
+=================
+Negative - Action - Wrong Location Keyword
+=================
+
+Center set screen for Point Guard inout Top of Key
+
+---
+
+(start
+	(offensive_action
+        (screen
+			(player_identifier)
+			(player_identifier)))
+		(ERROR
+			(UNEXPECTED 'o')))
+
+=================
+Negative - Action - Dribble Wrong Type
+=================
+
+Point Guard dribble (behind-the-front) to Free Throw Line
+
+---
+
+(start
+	(offensive_action
+		(dribble
+			(player_identifier)
+			(ERROR
+				(UNEXPECTED 'f'))
+			(location))))
+
+
+=================
+Negative - Action - Cut Wrong Type
+=================
+
+Small Forward cut (frontdoor) to Elbow Left
+
+---
+
+(start
+	(offensive_action
+		(cut
+			(player_identifier)
+			(ERROR
+				(UNEXPECTED 'n'))
+			(location))))

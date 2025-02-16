@@ -33,6 +33,10 @@
         {
           "type": "identifier",
           "named": true
+        },
+        {
+          "type": "num",
+          "named": true
         }
       ]
     }

@@ -1,0 +1,95 @@
+=================
+Negative - Plays - Opening Bracket
+=================
+
+PLAY empty_play 
+}
+
+---
+
+(start
+	(ERROR
+        (identifier)))
+
+=================
+Negative - Plays - Closing Bracket
+=================
+
+PLAY { empty 
+
+
+---
+
+(start
+      (ERROR
+        (UNEXPECTED 'e')
+        (UNEXPECTED 't')))
+
+
+=================
+Negative - Plays - Missing with
+=================
+
+PLAY empty_play Point Guard {
+}
+
+---
+
+(start
+	(playbook
+		(play
+			(identifier)
+			(ERROR))))
+
+
+=================
+Negative - Plays - Incorrect Identifier
+=================
+
+PLAY empty_play Fly Half {
+}
+
+---
+
+(start
+	(playbook
+        (play
+			(identifier)
+			(ERROR
+				(identifier)
+				(UNEXPECTED 'l')))))
+
+
+=================
+Negative - Plays - Incorrect Return
+=================
+
+PLAY empty_play_return with Point Guard {
+	DISK Point Guard
+}
+
+---
+
+(start
+	(playbook
+        (play
+			(identifier)
+			(player_identifier)
+			(ERROR))))
+
+
+=================
+Negative - Plays - Name instead of identifier
+=================
+
+PLAY Luka Doncic @ with Point Guard, Small Forward {
+}
+
+---
+
+(start
+	(ERROR
+        (player
+			(name))
+        (player_identifier)
+        (player_identifier)))

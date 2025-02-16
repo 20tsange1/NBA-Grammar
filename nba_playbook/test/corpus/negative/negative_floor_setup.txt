@@ -1,0 +1,113 @@
+=================
+Negative - Floor Setup - Opening Bracket
+=================
+
+SETUP 
+    BALL Luka Doncic @
+}
+
+---
+
+(start
+    (ERROR
+        (player
+            (name))))
+
+
+=================
+Negative - Floor Setup - Closing Bracket
+=================
+
+SETUP {
+    BALL Luka Doncic @
+
+
+---
+
+(start
+    (setup
+        (setup_holder
+            (ball_holder
+                (player
+                    (name)))
+                (MISSING "}"))))
+
+
+=================
+Negative - Floor Setup - No Bracket
+=================
+
+SETUP BALL Luka Doncic @
+
+
+---
+
+(start
+    (ERROR
+        (player
+            (name))))
+
+
+=================
+Negative - Floor Setup - Incorrect With
+=================
+
+SETUP without Lebron James @ {
+    BALL Lebron James @
+}
+
+---
+
+(start
+    (setup
+        (ERROR
+            (identifier))
+        (player
+            (name))
+        (setup_holder
+            (ball_holder
+                (player
+                    (name))))))
+
+
+=================
+Negative - Floor Setup - Missing With
+=================
+
+SETUP Luka Doncic @ {
+    BALL Luka Doncic @
+}
+
+---
+
+(start
+    (ERROR
+        (player
+            (name))
+        (identifier)
+        (UNEXPECTED 'u')
+        (identifier)
+        (UNEXPECTED 'i')))
+
+
+=================
+Negative - Floor Setup - Player Missing @
+=================
+
+SETUP with Luka Doncic {
+    BALL Luka Doncic
+}
+
+---
+
+(start
+    (setup
+        (player
+            (name)
+            (MISSING "@"))
+            (setup_holder
+                (ball_holder
+                    (player
+                        (name)
+            (MISSING "@"))))))
+

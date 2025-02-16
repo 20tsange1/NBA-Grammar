@@ -18,6 +18,11 @@ module.exports = grammar({
 	word: ($) => ($.identifier, $.string_capitalised),
 
 	rules: {
+
+
+    // -----------------------------------------
+    // ------------ NBA CALCULATOR -------------
+    // -----------------------------------------
 		start: $ => (repeat(choice(
       $.playbook
       ,$._action_only
@@ -39,9 +44,6 @@ module.exports = grammar({
     playbook: $ => prec.right((repeat1(($.play
     ))
     )),
-    
-
-
 
     // -------------------------------
     // ------------ PLAY -------------

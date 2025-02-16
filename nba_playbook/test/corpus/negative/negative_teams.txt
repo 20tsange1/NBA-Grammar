@@ -1,0 +1,47 @@
+=================
+Negative - Team - Extra Symbol Identifier
+=================
+
+TEAM lebron @ (Lebron James @)
+
+---
+
+(start
+    (team
+        (identifier)
+        (ERROR)
+        (team_holder
+            (player
+                (name)))))
+
+=================
+Negative - Team - Identifier Instead of Name
+=================
+
+TEAM lebron (lebron)
+
+---
+
+(start
+    (ERROR
+        (identifier)
+        (UNEXPECTED 'e')))
+
+
+=================
+Negative - Team -  Multiple People Missing Comma
+=================
+
+TEAM la_lakers (Lebron James @ Luca Doncic @)
+
+---
+
+(start
+    (team
+        (identifier)
+        (ERROR
+            (player
+                (name)))
+        (team_holder
+            (player
+                (name)))))
